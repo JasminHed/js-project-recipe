@@ -28,34 +28,33 @@ p {
 
 .filter-sort-container {
   display: flex;
-  /*flex-wrap: wrap;*/
-
+  flex-direction: row;
 }
 
-.filter-item,
-.sort-item {
+.filter-header,
+.sort-header {
   display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 5px;
+  justify-content: space-around;
 }
 
-#vegan-button,
-#veg-button,
-#nonveg-button {
+.filter-group,
+.sort-group {
+  border: none;
+  display: flex;
+}
+
+.filter-button {
   border: none;
   background: #CCFFE2;
   color: #0018A4;
   border-radius: 50px;
   font-size: 18px;
   padding: 8px 16px;
-  gap: 10px;
   cursor: pointer;
-  width: 30%;
+  width: auto;
 }
 
-
-.sort-item-button {
+.sort-button {
   border: none;
   background: #FFECEA;
   color: #0018A4;
@@ -64,23 +63,21 @@ p {
   padding: 8px 16px;
   gap: 10px;
   cursor: pointer;
-  width: 30%;
+  width: auto;
 
 }
 
-#vegan-button:hover,
-#veg-button:hover,
-#nonveg-button:hover,
-.sort-item-button:hover {
+.filter-button:hover,
+.sort-button:hover {
   border: 2px solid #0018A4;
 }
 
-.filter-item-button:active {
+.filter-button:active {
   background: #0018A4;
   color: white;
 }
 
-.sort-item-button:active {
+.sort-button:active {
   background: #FF6589;
   color: white;
 }

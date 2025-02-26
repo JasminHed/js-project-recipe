@@ -14,31 +14,57 @@
   <title>Recipe Library</title>
 </head>
 
-<main>
+<body>
 
-  <body>
+  <main>
+
     <h1>Timeless Recipe Library</h1>
 
     <section class="filter-sort-container">
 
-      <div class="filter-item">
+      <div class="filter-header">
         <h2>Filter on diets</h2>
-        <button id="vegan-button">Vegan</button>
-        <button id="veg-button">Vegetarian</button>
-        <button id="nonveg-button">Non-Vegetarian</button>
       </div>
 
-      <div class="sort-item">
+      <div class="filter-group">
+        <button
+          class="filter-button"
+          id="vegan-button"
+        >Vegan</button>
+        <button
+          class="filter-button"
+          id="veg-button"
+        >Vegetarian</button>
+        <button
+          class="filter-button"
+          id="nonveg-button"
+        >Non-Vegetarian</button>
+      </div>
+
+      <div class="sort-header">
         <h2>Sort on time</h2>
-        <button class="sort-item-button">Descending</button>
-        <button class="sort-item-button">Ascending</button>
+      </div>
+
+      <div class="sort-group">
+        <button
+          class="sort-button"
+          id="descending-button"
+        >Descending</button>
+        <button
+          class="sort-button"
+          id="ascending-button"
+        >Ascending</button>
       </div>
     </section>
 
     <section class="option-recipe-container">
 
-      <div class="option-item">
+      <div
+        class="option-item"
+        id="message"
+      >
         <h2>Placeholder for filter/sorting options</h2>
+
       </div>
 
       <div class="recipe-item">
@@ -58,7 +84,7 @@
       </div>
     </section>
 
-</main>
+  </main>
 </body>
 <script src="script.js"></script>
 
