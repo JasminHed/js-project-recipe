@@ -9,26 +9,39 @@ body {
 h1 {
   color: #0018A4;
   font-size: 64px;
-  padding: 15px;
+  padding: 5px;
 
 }
 
 h2 {
   font-size: 22px;
+  padding: 5px;
 }
 
 h3 {
   font-size: 18px;
   font-weight: bold;
+  padding: 5px;
+  margin: 0;
 }
 
 p {
   font-size: 16px;
+  margin-top: 4px;
+  padding: 5px;
+  margin: 0;
+}
+
+hr {
+  border: 1px solid #E9E9E9;
+  width: 100%;
 }
 
 .parent {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+  margin-left: 10px;
 }
 
 .filter-button {
@@ -39,7 +52,9 @@ p {
   font-size: 18px;
   padding: 8px 16px;
   cursor: pointer;
-  width: auto;
+  min-width: fit-content;
+  height: 40px;
+
 }
 
 .sort-button {
@@ -51,7 +66,8 @@ p {
   padding: 8px 16px;
   gap: 10px;
   cursor: pointer;
-  width: auto;
+  width: 127px;
+  height: 40px;
 
 }
 
@@ -74,33 +90,28 @@ p {
 .parent2 {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   gap: 20px;
   margin: 10px;
 
 }
 
-.option-item {
-  overflow: hidden;
+.option-item,
+.recipe-item {
   border: 1px solid grey;
   border-radius: 12px;
-  width: 300px;
-  padding: 16px 16px 24px 16px;
+  width: 100%;
+  padding: 2px 2px 5px 2px;
 }
 
-
-.recipe-item {
-  overflow: hidden;
-  border: 1px solid grey;
-  border-radius: 12px;
-  width: 300px;
-  padding: 16px 16px 24px 16px;
-
+.option-item p {
+  display: block;
+  white-space: normal;
 }
 
 .recipe-item:hover {
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 1);
   border: 2px solid #0018A4;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 1);
 }
 
 .recipe-item img {
@@ -108,24 +119,70 @@ p {
   border-radius: 12px;
 }
 
-hr {
-  border: 1px solid grey;
-  width: 100%;
+.recipe-item img:hover {
+  border: 1px solid #899CCC;
 }
+
+.ingredient-list {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+}
+
 
 /*Media Queries*/
 
+@media (min-width: 320px) {
+
+  .parent,
+  .parent2 {
+    margin: 0 auto;
+  }
+
+  .filter-button,
+  .sort-button {
+    padding: 4px 6px;
+  }
+
+  .option-item {
+    min-height: 400px;
+  }
+
+}
+
 @media (min-width: 668px) and (max-width:1024px) {
+
   .parent {
     flex-direction: row;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .parent2 {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    max-width: 90%;
+    margin: 0 auto
+  }
+
+  .filter-button,
+  .sort-button {
+    margin-bottom: 8px;
   }
 
 }
 
 @media (min-width: 1025px) {
-  .parent {
+
+  .parent,
+  .parent2 {
     flex-direction: row;
   }
 
+  .option-item,
+  .recipe-item {
+    padding: 16px 16px 24px 16px;
+    width: 300px;
+  }
 
 }

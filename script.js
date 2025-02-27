@@ -1,39 +1,41 @@
-const messageHolder = document.getElementById("message")
-
+const messageHolder = document.getElementById("message") //getting element and saving in messageHolder
 const veganButton = document.getElementById("vegan-button")
-
-if (veganButton) {
-  veganButton.addEventListener("click", () => {
-    messageHolder.innerHTML += "You chose vegan" // + då lägger vi till i html
-  })
-}
-
-const vegeterianButton = document.getElementById("veg-button")
-
-if (vegeterianButton) {
-  vegeterianButton.addEventListener("click", () => {
-    messageHolder.innerHTML += "You chose vegeterian"
-  })
-}
-
-const nonvegButton = document.getElementById("nonveg-button")
-
-if (nonvegButton) {
-  nonvegButton.addEventListener("click", () => {
-    messageHolder.innerHTML += "You chose nonveg and nonvegan"
-  })
-}
-
 const descendingButton = document.getElementById("descending-button")
+
+//creating function called getRecipe w. parameter diet. The parameter returns recipe
+const getRecipe = (diet) => {
+  if (diet === "vegan") return "falafel"
+}
+
+//creating function called handleSelection w. parameter userChoice
+const handleSelection = (userChoice) => {
+  //creating it empty to fill later, like let winner from live session
+  let message = ""
+
+  //if a user chooses vegan = message below
+  if (userChoice === "vegan") {
+    message = `You chose vegan? Here is a suited recipe ${getRecipe("vegan")}`
+  }
+  else if (userChoice === "descending") {
+    message = "Aha, short on time? Not a problem!"
+  }
+
+  //Message show in messageHolder
+  messageHolder.innerHTML += message
+}
+
+
+if (veganButton) { //Checking that button exists then veganButton clicked, call function handleSelection to send message.
+  veganButton.addEventListener("click", () => {
+    handleSelection("vegan")
+  })
+}
+
+
 if (descendingButton) {
   descendingButton.addEventListener("click", () => {
-    messageHolder.innerHTML += "Aha, short on time! No problem."
+    handleSelection("descending")
   })
 }
 
-const ascendingButton = document.getElementById("ascending-button")
-if (ascendingButton) {
-  ascendingButton.addEventListener("click", () => {
-    messageHolder.innerHTML += "Plenty of time, enjoy!"
-  })
-}
+
