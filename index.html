@@ -11,22 +11,18 @@
     rel="stylesheet"
     href="styles.css"
   >
-  <title>Recipe Library</title>
+  <title>Timeless Recipe Library</title>
 </head>
 
 <body>
 
   <main>
-
     <h1>Timeless Recipe Library</h1>
 
-    <section class="filter-sort-container">
+    <section class="parent">
 
-      <div class="filter-header">
+      <div class="filter-container">
         <h2>Filter on diets</h2>
-      </div>
-
-      <div class="filter-group">
         <button
           class="filter-button"
           id="vegan-button"
@@ -41,11 +37,9 @@
         >Non-Vegetarian</button>
       </div>
 
-      <div class="sort-header">
-        <h2>Sort on time</h2>
-      </div>
 
-      <div class="sort-group">
+      <div class="sort-container">
+        <h2>Sort on time</h2>
         <button
           class="sort-button"
           id="descending-button"
@@ -57,8 +51,7 @@
       </div>
     </section>
 
-    <section class="option-recipe-container">
-
+    <section class="parent2">
       <div
         class="option-item"
         id="message"
@@ -66,12 +59,13 @@
         <h2>Placeholder for filter/sorting options</h2>
 
       </div>
-
       <div class="recipe-item">
         <img src="./assets/foodviet.jpg" />
         <h2>Placeholder recipe</h2>
+        <hr>
         <h3>Diet:</h3>
         <p>Non-vegeterian</p>
+        <hr>
         <h3>Cooking Time:</h3>
         <p>30min</p>
         <h3>Ingredientes</h3>
