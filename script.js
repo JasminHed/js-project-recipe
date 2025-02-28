@@ -34,4 +34,33 @@ if (descendingButton) {
     handleSelection("descending")
   })
 }
+//Or is this right?
+/*const allButton = document.getElementById("all-button")
+if (allButton) {
+  allButton.addEventListener("click", () => {
+    messageHolder.innerHTML+="All eater huh?"
+  })
+}
 
+const vegeterianButton = document.getElementById("veg-button")
+
+if (vegeterianButton) {
+  vegeterianButton.addEventListener("click", () => {
+    messageHolder.innerHTML += "You chose vegeterian"
+  })
+}
+
+const nonvegButton = document.getElementById("nonveg-button")
+
+if (nonvegButton) {
+  nonvegButton.addEventListener("click", () => {
+    messageHolder.innerHTML += "You chose nonveg and nonvegan"
+  })
+}
+
+const ascendingButton = document.getElementById("ascending-button")
+if (ascendingButton) {
+  ascendingButton.addEventListener("click", () => {
+    messageHolder.innerHTML += "Plenty of time, enjoy!"
+  })
+}*/
