@@ -41,11 +41,21 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-left: 10px;
+}
+
+fieldset {
+  border: none;
+}
+
+input[type="radio"] {
+  display: none;
+
 }
 
 .filter-button {
   border: none;
+  white-space: nowrap;
+  /* the text in button stays put*/
   background: #CCFFE2;
   color: #0018A4;
   border-radius: 50px;
@@ -76,12 +86,12 @@ hr {
   border: 2px solid #0018A4;
 }
 
-.filter-button:active {
+input[type="radio"]:checked+.filter-button {
   background: #0018A4;
   color: white;
 }
 
-.sort-button:active {
+input[type="radio"]:checked+.sort-button {
   background: #FF6589;
   color: white;
 }
@@ -89,18 +99,23 @@ hr {
 
 .parent2 {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 
 }
 
-.option-item,
+/*.option-item {
+  border: 1px solid grey;
+  border-radius: 12px;
+  width: 300px;
+  padding: 2px 2px 2px 2px;
+}*/
+
 .recipe-item {
   border: 1px solid grey;
   border-radius: 12px;
-  width: 100%;
-  padding: 2px 2px 5px 2px;
+  width: 300px;
+  padding: 2px 2px 2px 2px;
 }
 
 .recipe-item:hover {
@@ -114,7 +129,7 @@ hr {
 }
 
 .recipe-item img:hover {
-  border: 1px solid #899CCC;
+  border: 2px solid #899CCC;
 }
 
 .ingredient-list {
@@ -128,18 +143,17 @@ hr {
 
 @media (min-width: 320px) {
 
-  .parent,
-  .parent2 {
-    margin: 0 auto;
-  }
-
   .filter-button,
   .sort-button {
     padding: 4px 6px;
   }
 
-  .option-item {
+  /*.option-item {
     min-height: 400px;
+  }*/
+
+  .recipe-item {
+    padding: 5px;
   }
 
 }
@@ -158,9 +172,25 @@ hr {
 
   .parent2 {
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     max-width: 90%;
     margin: 0 auto
+  }
+
+  #recipes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    width: 100%;
+  }
+
+  /*.option-item,*/
+  .recipe-item {
+    padding: 16px 16px 24px 16px;
+    min-height: auto;
+    box-sizing: border-box;
+    width: calc(50% - 20px);
+
   }
 
   .filter-button,
@@ -172,16 +202,36 @@ hr {
 
 @media (min-width: 1025px) {
 
-  .parent,
-  .parent2 {
+  .parent {
     flex-direction: row;
     margin-bottom: 10px;
   }
 
-  .option-item,
-  .recipe-item {
-    padding: 16px 16px 24px 16px;
-    width: 300px;
+  .parent2 {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: 0 auto
   }
 
+  #recipes-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 32px;
+  }
+
+  .recipe-item {
+    padding: 16px 16px 24px 16px;
+    /*width: 300px;*/
+    min-height: auto;
+    box-sizing: border-box;
+    width: calc(25% - 24px);
+
+  }
+
+  /*.option-item {
+    width: 300px;
+    align-self: flex-start;
+  }*/
 }
