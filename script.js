@@ -49,7 +49,7 @@ const recipes = [
     readyInMinutes: 20,
     servings: 3,
     sourceUrl: "https://example.com/gluten-free-chicken-stir-fry",
-    diets: ["All", "Non-veg"],
+    diets: ["Non-veg"],
     ingredients: [
       "chicken breast",
       "broccoli",
@@ -72,7 +72,7 @@ const recipes = [
     readyInMinutes: 15,
     servings: 2,
     sourceUrl: "https://example.com/dairy-free-tacos",
-    diets: ["All", "Non-veg"],
+    diets: ["Non-veg"],
     ingredients: [
       "corn tortillas",
       "ground beef",
@@ -89,7 +89,7 @@ const recipes = [
     readyInMinutes: 10,
     servings: 4,
     sourceUrl: "https://example.com/middle-eastern-hummus",
-    diets: ["All", "Non-veg"],
+    diets: ["Non-veg"],
     cuisine: "Middle Eastern",
     ingredients: [
       "chickpeas",
@@ -106,7 +106,7 @@ const recipes = [
     readyInMinutes: 5,
     servings: 1,
     sourceUrl: "https://example.com/quick-avocado-toast",
-    diets: ["All", "Vegan"],
+    diets: ["Vegan"],
     cuisine: "Mediterranean",
     ingredients: [
       "bread",
@@ -172,18 +172,19 @@ const loadRecipes = (recipeArray) => {
 
 loadRecipes(recipes);
 
+//Getting my filter diet values
 const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
   console.log("diet", filterValue)
+
+  //Show all recipes if all-button is selected
+  if (filterValue === "all") {
+    console.log("Show ALL recipes")
+    console.log("recipes")
+    loadRecipes(recipes)
+  }
 }
 
-
-//Show all recipes if all-button is selected
-if (filterValue === "all") {
-  console.log("Show AlL recipes")
-  console.log("recipes")
-  loadRecipes(recipes)
-}
 
 document.querySelectorAll(`input[name="diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
