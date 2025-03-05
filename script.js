@@ -219,7 +219,6 @@ const sortTime = () => {
   }
 }
 
-
 //Add action to each radiobutton sort
 document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
   radio.addEventListener(`change`, sortTime)
@@ -227,7 +226,5 @@ document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
 
 
 
-
-loadRecipes(recipes)
 
 
