@@ -96,16 +96,12 @@ input[type="radio"]:checked+.sort-button {
   color: white;
 }
 
-/*.parent2 {
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
-}*/
 
 #recipes-container {
   display: flex;
   flex-direction: column;
   margin-top: 8px;
+  gap: 10px;
 }
 
 .recipe-item {
@@ -155,12 +151,6 @@ input[type="radio"]:checked+.sort-button {
     flex-direction: row;
     max-width: 90%;
   }
-
-  /*.parent2 {
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: 90%;
-  }*/
 
   #recipes-container {
     display: flex;
