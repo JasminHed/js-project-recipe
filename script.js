@@ -158,7 +158,7 @@ const loadRecipes = (recipeArray) => {
 
         <hr>
 
-        <h3>Diet:</h3> <p> ${recipe.diets.join(", ")}</p>
+        <h3>Diet:</h3> <p> ${recipe.diets}</p>
         <h3>Time:</h3> <p>${recipe.readyInMinutes} minutes</p>
         <hr>
         
@@ -183,6 +183,11 @@ const filterDiets = () => {
     console.log("Show ALL recipes")
     console.log("recipes")
     loadRecipes(recipes)
+  } else {
+    const dietFilteredRecipes = recipes.filter(recipes => recipe.diets.includes(filterValue))
+
+    loadRecipes(dietFilteredRecipes)
+
   }
 }
 
