@@ -171,7 +171,6 @@ const loadRecipes = (recipeArray) => {
   })
 }
 
-loadRecipes(recipes);
 
 //Getting my filter diet values
 const filterDiets = () => {
@@ -183,6 +182,8 @@ const filterDiets = () => {
     console.log("Show ALL recipes")
     console.log("recipes")
     loadRecipes(recipes)
+
+    //Show recipes filtered by diet
   } else {
     const dietFilteredRecipes = recipes.filter(recipe =>
       recipe.diets.toLowerCase() === filterValue.toLowerCase()
@@ -193,7 +194,6 @@ const filterDiets = () => {
 
   }
 }
-
 //Add action to each radiobutton filter
 document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
@@ -203,8 +203,31 @@ document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
 const sortTime = () => {
   const sortValue = document.querySelector(`input[name="time"]:checked`).value
   console.log("time", sortValue)
+
+  //Show recipes sorted longest to shortest
+  if (sortValue === "descending") {
+    const timeSortedRecipes = [...recipes].sort((a, b) => b.readyInMinutes - a.readyInMinutes)
+    console.log("Sorted recipes (longest to shortest):", timeSortedRecipes)
+    loadRecipes(timeSortedRecipes)
+
+    //Show recipes sorted shortest to longest
+  } else {
+    const timeSortedRecipes = [...recipes].sort((a, b) => a.readyInMinutes - b.readyInMinutes)
+    console.log("Sorted recipes (shortest to longest):", timeSortedRecipes)
+
+    loadRecipes(timeSortedRecipes)
+  }
 }
 
 
+//Add action to each radiobutton sort
+document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
+  radio.addEventListener(`change`, sortTime)
+})
+
+
+
+
+loadRecipes(recipes)
 
 
