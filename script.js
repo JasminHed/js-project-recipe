@@ -172,28 +172,12 @@ const loadRecipes = (recipeArray) => {
 
 loadRecipes(recipes);
 
-
-/*const messageHolder = document.getElementById("message")
-Vegan radio button event listener
-const veganButton = document.getElementById("vegan-button");
-if (veganButton) {
-  veganButton.addEventListener("change", () => {
-    if (veganButton.checked) {
-      messageHolder.innerHTML += "<p>You chose vegan</p>";
-    }
-  });
+const filterDiets = () => {
+  const filterValue = document.querySelector('input[name="diet"]:checked').value
 }
 
 
-Descending sort radio button event listener
-const descendingButton = document.getElementById("descending-button");
-if (descendingButton) {
-  descendingButton.addEventListener("change", () => {
-    if (descendingButton.checked) {
-      messageHolder.innerHTML += "<p>In a hurry? No problem.</p>";
-    }
-  });
-}*/
+
 
 
 

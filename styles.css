@@ -212,8 +212,6 @@ input[type="radio"]:checked+.sort-button {
     min-width: 250px;
     max-width: calc(25% - 32px);
     align-self: flex-start;
-
-
   }
 
   .recipe-item img {
