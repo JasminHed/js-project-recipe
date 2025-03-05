@@ -169,6 +169,7 @@ input[type="radio"]:checked+.sort-button {
     gap: 32px;
     height: 100%;
     max-width: 90%;
+    margin: 0 auto;
   }
 
   .recipe-item {
@@ -193,21 +194,14 @@ input[type="radio"]:checked+.sort-button {
     margin-bottom: 10px;
   }
 
-  /*.parent2 {
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: 90%;
-    margin: 0 auto;
-    justify-content: flex-start !important;
-    align-items: flex-start !important;
-  }*/
-
   #recipes-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
     gap: 32px;
+    margin-left: 10px;
+    margin-right: 8px;
   }
 
   .recipe-item {
@@ -218,6 +212,7 @@ input[type="radio"]:checked+.sort-button {
     min-width: 250px;
     max-width: calc(25% - 32px);
     align-self: flex-start;
+
 
   }
 
