@@ -5,7 +5,7 @@ const recipes = [
     image: "assets/lentilsoup.jpg",
     servings: 4,
     sourceUrl: "https://example.com/vegan-lentil-soup",
-    diets: ["Vegan"],
+    diets: "Vegan",
     readyInMinutes: 30,
     cuisine: "Mediterranean",
     ingredients: [
@@ -30,7 +30,7 @@ const recipes = [
     readyInMinutes: 25,
     servings: 2,
     sourceUrl: "https://example.com/vegetarian-pesto-pasta",
-    diets: ["Vegetarian"],
+    diets: "Vegetarian",
     ingredients: [
       "pasta",
       "basil",
@@ -49,7 +49,7 @@ const recipes = [
     readyInMinutes: 20,
     servings: 3,
     sourceUrl: "https://example.com/gluten-free-chicken-stir-fry",
-    diets: ["Non-veg"],
+    diets: "Non-veg",
     ingredients: [
       "chicken breast",
       "broccoli",
@@ -72,7 +72,7 @@ const recipes = [
     readyInMinutes: 15,
     servings: 2,
     sourceUrl: "https://example.com/dairy-free-tacos",
-    diets: ["Non-veg"],
+    diets: "Non-veg",
     ingredients: [
       "corn tortillas",
       "ground beef",
@@ -81,6 +81,7 @@ const recipes = [
       "tomato",
       "avocado"
     ]
+
   },
   {
     id: 5,
@@ -89,7 +90,7 @@ const recipes = [
     readyInMinutes: 10,
     servings: 4,
     sourceUrl: "https://example.com/middle-eastern-hummus",
-    diets: ["Non-veg"],
+    diets: "Non-veg",
     cuisine: "Middle Eastern",
     ingredients: [
       "chickpeas",
@@ -106,7 +107,7 @@ const recipes = [
     readyInMinutes: 5,
     servings: 1,
     sourceUrl: "https://example.com/quick-avocado-toast",
-    diets: ["Vegan"],
+    diets: "Vegan",
     cuisine: "Mediterranean",
     ingredients: [
       "bread",
@@ -122,7 +123,7 @@ const recipes = [
     readyInMinutes: 90,
     servings: 5,
     sourceUrl: "https://example.com/beef-stew",
-    diets: ["Vegan", "Vegeterian"],
+    diets: "Vegan", "Vegeterian",
     ingredients: [
       "potatoes",
       "carrots",
@@ -186,6 +187,7 @@ const filterDiets = () => {
 }
 
 
+//Add action to each radiobutton
 document.querySelectorAll(`input[name="diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
 })
