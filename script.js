@@ -148,7 +148,7 @@ const recipes = [
 const recipesContainer = document.getElementById("recipes-container");
 
 const loadRecipes = (recipeArray) => {
-  recipesContainer.innerHTML = ""; // Clear before adding new recipes
+  recipesContainer.innerHTML = "" // Clear before adding new recipes
 
   recipeArray.forEach(recipe => {
     recipesContainer.innerHTML += `
@@ -167,9 +167,9 @@ const loadRecipes = (recipeArray) => {
           ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join("")}
         </ul>
       </div>
-    `;
-  });
-};
+    `
+  })
+}
 
 loadRecipes(recipes);
 
@@ -194,11 +194,16 @@ const filterDiets = () => {
   }
 }
 
-
-//Add action to each radiobutton
+//Add action to each radiobutton filter
 document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
 })
+
+//Getting my sort time value
+const sortTime = () => {
+  const sortValue = document.querySelector(`input[name="time"]:checked`).value
+  console.log("time", sortValue)
+}
 
 
 
