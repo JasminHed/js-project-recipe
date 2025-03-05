@@ -224,7 +224,7 @@ document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
   radio.addEventListener(`change`, sortTime)
 })
 
-
-
+//Makes sure all recipes show when page loads
+loadRecipes(recipes)
 
 
