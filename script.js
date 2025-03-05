@@ -123,7 +123,7 @@ const recipes = [
     readyInMinutes: 90,
     servings: 5,
     sourceUrl: "https://example.com/beef-stew",
-    diets: "Vegeterian",
+    diets: "Vegetarian",
     ingredients: [
       "potatoes",
       "carrots",
@@ -184,8 +184,10 @@ const filterDiets = () => {
     console.log("recipes")
     loadRecipes(recipes)
   } else {
-    const dietFilteredRecipes = recipes.filter(recipes => recipe.diets === filterValue)
-    console.log("Filtering recipes for ${filterValue}", dietFilteredRecipes)
+    const dietFilteredRecipes = recipes.filter(recipe =>
+      recipe.diets.toLowerCase() === filterValue.toLowerCase()
+    )
+    console.log(`Filtering recipes for ${filterValue}`, dietFilteredRecipes)
 
     loadRecipes(dietFilteredRecipes)
 
@@ -194,7 +196,7 @@ const filterDiets = () => {
 
 
 //Add action to each radiobutton
-document.querySelectorAll(`input[name="diet"]`).forEach(radio => {
+document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
 })
 
