@@ -123,7 +123,7 @@ const recipes = [
     readyInMinutes: 90,
     servings: 5,
     sourceUrl: "https://example.com/beef-stew",
-    diets: "Vegan", "Vegeterian",
+    diets: "Vegeterian",
     ingredients: [
       "potatoes",
       "carrots",
@@ -184,7 +184,8 @@ const filterDiets = () => {
     console.log("recipes")
     loadRecipes(recipes)
   } else {
-    const dietFilteredRecipes = recipes.filter(recipes => recipe.diets.includes(filterValue))
+    const dietFilteredRecipes = recipes.filter(recipes => recipe.diets === filterValue)
+    console.log("Filtering recipes for ${filterValue}", dietFilteredRecipes)
 
     loadRecipes(dietFilteredRecipes)
 
