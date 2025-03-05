@@ -177,11 +177,17 @@ const filterDiets = () => {
   console.log("diet", filterValue)
 }
 
+
+//Show all recipes if all-button is selected
+if (filterValue === "all") {
+  console.log("Show AlL recipes")
+  console.log("recipes")
+  loadRecipes(recipes)
+}
+
 document.querySelectorAll(`input[name="diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
 })
-
-
 
 
 
