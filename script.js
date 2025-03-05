@@ -5,7 +5,7 @@ const recipes = [
     image: "assets/lentilsoup.jpg",
     servings: 4,
     sourceUrl: "https://example.com/vegan-lentil-soup",
-    diets: ["vegan"],
+    diets: ["Vegan"],
     readyInMinutes: 30,
     cuisine: "Mediterranean",
     ingredients: [
@@ -30,7 +30,7 @@ const recipes = [
     readyInMinutes: 25,
     servings: 2,
     sourceUrl: "https://example.com/vegetarian-pesto-pasta",
-    diets: ["vegetarian"],
+    diets: ["Vegetarian"],
     ingredients: [
       "pasta",
       "basil",
@@ -49,7 +49,7 @@ const recipes = [
     readyInMinutes: 20,
     servings: 3,
     sourceUrl: "https://example.com/gluten-free-chicken-stir-fry",
-    diets: ["all", "non-veg"],
+    diets: ["All", "Non-veg"],
     ingredients: [
       "chicken breast",
       "broccoli",
@@ -72,7 +72,7 @@ const recipes = [
     readyInMinutes: 15,
     servings: 2,
     sourceUrl: "https://example.com/dairy-free-tacos",
-    diets: ["all", "non-veg"],
+    diets: ["All", "Non-veg"],
     ingredients: [
       "corn tortillas",
       "ground beef",
@@ -89,7 +89,7 @@ const recipes = [
     readyInMinutes: 10,
     servings: 4,
     sourceUrl: "https://example.com/middle-eastern-hummus",
-    diets: ["all", "non-veg"],
+    diets: ["All", "Non-veg"],
     cuisine: "Middle Eastern",
     ingredients: [
       "chickpeas",
@@ -106,7 +106,7 @@ const recipes = [
     readyInMinutes: 5,
     servings: 1,
     sourceUrl: "https://example.com/quick-avocado-toast",
-    diets: ["all", "vegan"],
+    diets: ["All", "Vegan"],
     cuisine: "Mediterranean",
     ingredients: [
       "bread",
@@ -122,7 +122,7 @@ const recipes = [
     readyInMinutes: 90,
     servings: 5,
     sourceUrl: "https://example.com/beef-stew",
-    diets: ["vegan", "vegeterian"],
+    diets: ["Vegan", "Vegeterian"],
     ingredients: [
       "potatoes",
       "carrots",
@@ -152,10 +152,15 @@ const loadRecipes = (recipeArray) => {
   recipeArray.forEach(recipe => {
     recipesContainer.innerHTML += `
       <div class="recipe-item">
-        <h2>${recipe.title}</h2>
         <img src="${recipe.image}" alt="${recipe.title}" />
-        <h3>Time: ${recipe.readyInMinutes} minutes</h3>
-        <h3>Diet: ${recipe.diets.join(", ")}</h3>
+        <h2>${recipe.title}</h2>
+
+        <hr>
+
+        <h3>Diet:</h3> <p> ${recipe.diets.join(", ")}</p>
+        <h3>Time:</h3> <p>${recipe.readyInMinutes} minutes</p>
+        <hr>
+        
         <h3>Ingredients:</h3>
         <ul class="ingredient-list">
           ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join("")}

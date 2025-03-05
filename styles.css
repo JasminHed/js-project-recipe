@@ -96,20 +96,11 @@ input[type="radio"]:checked+.sort-button {
   color: white;
 }
 
-
 .parent2 {
   display: flex;
   flex-direction: column;
   margin-top: 8px;
-
 }
-
-/*.option-item {
-  border: 1px solid grey;
-  border-radius: 12px;
-  width: 300px;
-  padding: 2px 2px 2px 2px;
-}*/
 
 .recipe-item {
   border: 1px solid grey;
@@ -118,6 +109,7 @@ input[type="radio"]:checked+.sort-button {
   padding: 5px;
   display: inline-block;
 }
+
 
 .recipe-item:hover {
   border: 2px solid #0018A4;
@@ -149,42 +141,30 @@ input[type="radio"]:checked+.sort-button {
     padding: 4px 6px;
   }
 
-  /*.option-item {
-    min-height: 400px;
-  }*/
-
 }
 
 @media (min-width: 668px) and (max-width:1024px) {
 
-  h1 {
-    margin-left: 28px;
-  }
-
   .parent {
     flex-direction: row;
     max-width: 90%;
-    margin: 0 auto;
   }
 
   .parent2 {
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 90%;
-    margin: 0 auto
   }
 
   #recipes-container {
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
-    width: 100%;
+    height: 100%;
   }
 
-  /*.option-item,*/
   .recipe-item {
     padding: 16px 16px 24px 16px;
-    min-height: auto;
     box-sizing: border-box;
     width: calc(50% - 20px);
 
@@ -210,6 +190,8 @@ input[type="radio"]:checked+.sort-button {
     flex-wrap: wrap;
     max-width: 90%;
     margin: 0 auto;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
   }
 
   #recipes-container {
@@ -217,8 +199,6 @@ input[type="radio"]:checked+.sort-button {
     flex-wrap: wrap;
     width: 100%;
     gap: 32px;
-    align-items: flex-start;
-
   }
 
   .recipe-item {
@@ -228,16 +208,12 @@ input[type="radio"]:checked+.sort-button {
     flex: 0 1 calc(25% - 32px);
     min-width: 250px;
     max-width: calc(25% - 32px);
+    align-self: flex-start;
 
   }
 
-  .recipe-item {
+  .recipe-item img {
     width: 100%;
 
   }
-
-  /*.option-item {
-    width: 300px;
-    align-self: flex-start;
-  }*/
 }
