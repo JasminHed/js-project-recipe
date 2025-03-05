@@ -174,9 +174,12 @@ loadRecipes(recipes);
 
 const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
+  console.log("diet", filterValue)
 }
 
-
+document.querySelectorAll(`input[name="diet"]`).forEach(radio => {
+  radio.addEventListener(`change`, filterDiets)
+})
 
 
 
