@@ -163,9 +163,9 @@ const loadRecipes = (recipeArray) => {
 <h3> No recipes found. Select a different filter. </h3>
 </div>
 `
-
     return //this will stop it from going through forEach
   }
+
 
   recipeArray.forEach(recipe => {
     recipesContainer.innerHTML += `
