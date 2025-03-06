@@ -145,28 +145,27 @@ const recipes = [
   }
 ]
 
-//Global array
-// Creating a copy of my original array
 
-let workingRecipes = recipes //here we are saying that we want this new array to be like my original array, which is recipe
+let workingRecipes = recipes //Global, Creates a separate working array copy, preserves the original recipes array, enables modifications without losing initial data (for sort/filter).
 
-const recipesContainer = document.getElementById("recipes-container");
+const recipesContainer = document.getElementById("recipes-container") // This selects my html recipecontainer and allows me to display things in it. 
 
-const loadRecipes = (recipeArray) => {
-  recipesContainer.innerHTML = "" // Clear before adding new recipes
+const loadRecipes = (recipeArray) => { //Creating a function named loadRecipes and adding a *parameter called recipeArray to dynamically *render, display recipes in my container.
+  recipesContainer.innerHTML = "" // Clearing container of recipes before adding new recipes.
 
-  //This checks all buttons because of its placement. 
-  if (recipeArray.length === 0) {
+
+  if (recipeArray.length === 0) { //Using .length method to count the numbers of recipes in the array.Checking if the count is zero.
     console.log("empty, show message")
-    recipesContainer.innerHTML = `
+    recipesContainer.innerHTML = ` 
 <div class="empty">
 <h3> No recipes found. Select a different filter. </h3>
 </div>
-`
-    return //this will stop it from going through forEach
+` //Connects a message to a chosen part of the innerHTML, this case recipecontainer.
+
+    return //Stops the forEach loop from continuing to run.
   }
 
-
+  // Looping through objects with forEach method. Using template literal ``to create dynamic HTML.Inserting recipe-specific information through values ${}. Code makes sure every recipe from origin recipes array is displayed on the webpage. // .map() converts each ingredient to a list item .join("") combines those list items into one continuous HTML string.
   recipeArray.forEach(recipe => {
     recipesContainer.innerHTML += `
       <div class="recipe-item">
@@ -182,26 +181,28 @@ const loadRecipes = (recipeArray) => {
         <h3>Ingredients:</h3>
         <ul class="ingredient-list">
           ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join("")}
-        </ul>
+        </ul> 
       </div>
     `
   })
 }
 
 
-//Getting my filter diet values
+//Creating a function called filterDiets and then selecting the checked radio buttons, capture their value (veg, vegan). 
 const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
   console.log("diet", filterValue)
 
-  //Show all recipes if all-button is selected
+  // Creating a new array workingRecipes.
+  // Copying all items from the origin recipes array to new.
+  // Ensuring all recipes will be displayed when "all" is selected.
   if (filterValue === "all") {
-    workingRecipes = recipes //putting all the recipes into this array. Variabel-value. 
+    workingRecipes = recipes //Variabel-value. 
     console.log("Show ALL recipes")
     console.log("recipes")
     loadRecipes(workingRecipes)
 
-    //Show recipes filtered by diet
+    //Creating a new array w. filter method that contains only the recipes matching the selected diet filter, while keeping the original recipes array unchanged.
   } else {
     workingRecipes = recipes.filter(recipe =>
       recipe.diets.toLowerCase() === filterValue.toLowerCase()
@@ -212,23 +213,24 @@ const filterDiets = () => {
 
   }
 }
-//Add action to each radiobutton filter
+
+//Adding an action to each diet filter radio button to trigger filtering.
 document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
 })
 
-//Getting my sort time value
+//Creating a function called sortTime and then selecting the checked radio buttons, capture their value (desc, ascend).
 const sortTime = () => {
   const sortValue = document.querySelector(`input[name="time"]:checked`).value
   console.log("time", sortValue)
 
-  //Show recipes sorted longest to shortest
+  //Sorts the recipes based on time using the sort method. Checks the value of sortValue and sorts the workingRecipes array in descending order if it's "descending", or in ascending order otherwise.
   if (sortValue === "descending") {
     const timeSortedRecipes = workingRecipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
     console.log("Sorted recipes (longest to shortest):", timeSortedRecipes)
     loadRecipes(timeSortedRecipes)
 
-    //Show recipes sorted shortest to longest
+
   } else {
     const timeSortedRecipes = workingRecipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes)
     console.log("Sorted recipes (shortest to longest):", timeSortedRecipes)
@@ -237,33 +239,31 @@ const sortTime = () => {
   }
 }
 
-//Add action to each radiobutton sort
+//Adding an action to each time sort radio button to trigger sorting.
 document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
   radio.addEventListener(`change`, sortTime)
 })
 
-//Makes sure all recipes show when page loads
+
 loadRecipes(recipes)
 
-// connection an action to my surprise button
+//Creating a new array called randomRecipe, extracting a portion of the recipes array using the slice method.
+const getRandomRecipe = () => {
+  const randomIndex = Math.floor(Math.random() * recipes.length)
+  console.log("surprisebutton was clicked");
+  console.log(`random recipe selected ${randomIndex}`)
+
+  const randomRecipe = recipes.slice(randomIndex, randomIndex + 1) // By using randomIndex and randomIndex + 1, we are selecting a single recipe at the randomly generated index.
+
+  loadRecipes(randomRecipe)
+}
+// Adding an action to surprise me button to render one random recipe.
 const surpriseButton = document.getElementById("button")
 
 if (surpriseButton) {
-  surpriseButton.addEventListener("click", () => {
-    const randomIndex = Math.floor(Math.random() * recipes.length)
-    console.log("surprisebutton was clicked")
-    console.log(`random recipe selected ${randomIndex}`)
-
-    const randomRecipe = recipes.slice(randomIndex, randomIndex + 1)
-
-    // Load the new array
-    loadRecipes(randomRecipe)
-
-
-
-  })
-
+  surpriseButton.addEventListener("click", getRandomRecipe)
 
 }
+
 
 
