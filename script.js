@@ -1,3 +1,4 @@
+//orginal array
 const recipes = [
   {
     id: 1,
@@ -144,9 +145,10 @@ const recipes = [
   }
 ]
 
-//create an array with let
+//Global array
+// Creating a copy of my original array
 
-let workingRecipes = recipes
+let workingRecipes = recipes //here we are saying that we want this new array to be like my original array, which is recipe
 
 const recipesContainer = document.getElementById("recipes-container");
 
@@ -232,3 +234,9 @@ document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
 loadRecipes(recipes)
 
 
+const surpriseButton = document.getElementById("button")
+if (surpriseButton) {
+  surpriseButton.addEventListener("click", () => {
+    console.log("surprisebutton was clicked")
+  })
+}
