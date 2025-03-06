@@ -155,6 +155,18 @@ const recipesContainer = document.getElementById("recipes-container");
 const loadRecipes = (recipeArray) => {
   recipesContainer.innerHTML = "" // Clear before adding new recipes
 
+  //This checks all buttons because of its placement. 
+  if (recipeArray.length === 0) {
+    console.log("empty, show message")
+    recipesContainer.innerHTML = `
+<div class="empty">
+<h3> No recipes found. Select a different filter. </h3>
+</div>
+`
+
+    return //this will stop it from going through forEach
+  }
+
   recipeArray.forEach(recipe => {
     recipesContainer.innerHTML += `
       <div class="recipe-item">
@@ -235,11 +247,23 @@ loadRecipes(recipes)
 
 // connection an action to my surprise button
 const surpriseButton = document.getElementById("button")
+
 if (surpriseButton) {
   surpriseButton.addEventListener("click", () => {
-    const randomIndex = Math.floor(Math.random() * 8)
+    const randomIndex = Math.floor(Math.random() * recipes.length)
     console.log("surprisebutton was clicked")
     console.log(`random recipe selected ${randomIndex}`)
+
+    const randomRecipe = recipes.slice(randomIndex, randomIndex + 1)
+
+    // Load the new array
+    loadRecipes(randomRecipe)
+
+
+
   })
+
+
 }
+
 
