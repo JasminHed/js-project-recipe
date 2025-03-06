@@ -233,10 +233,13 @@ document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
 //Makes sure all recipes show when page loads
 loadRecipes(recipes)
 
-
+// connection an action to my surprise button
 const surpriseButton = document.getElementById("button")
 if (surpriseButton) {
   surpriseButton.addEventListener("click", () => {
+    const randomIndex = Math.floor(Math.random() * 8)
     console.log("surprisebutton was clicked")
+    console.log(`random recipe selected ${randomIndex}`)
   })
 }
+
