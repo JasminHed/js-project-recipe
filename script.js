@@ -144,6 +144,9 @@ const recipes = [
   }
 ]
 
+//create an array with let
+
+let workingRecipes = recipes
 
 const recipesContainer = document.getElementById("recipes-container");
 
@@ -179,18 +182,19 @@ const filterDiets = () => {
 
   //Show all recipes if all-button is selected
   if (filterValue === "all") {
+    workingRecipes = recipes //putting all the recipes into this array. Variabel-value. 
     console.log("Show ALL recipes")
     console.log("recipes")
-    loadRecipes(recipes)
+    loadRecipes(workingRecipes)
 
     //Show recipes filtered by diet
   } else {
-    const dietFilteredRecipes = recipes.filter(recipe =>
+    workingRecipes = recipes.filter(recipe =>
       recipe.diets.toLowerCase() === filterValue.toLowerCase()
     )
-    console.log(`Filtering recipes for ${filterValue}`, dietFilteredRecipes)
+    console.log(`Filtering recipes for ${filterValue}`, workingRecipes)
 
-    loadRecipes(dietFilteredRecipes)
+    loadRecipes(workingRecipes)
 
   }
 }
@@ -206,13 +210,13 @@ const sortTime = () => {
 
   //Show recipes sorted longest to shortest
   if (sortValue === "descending") {
-    const timeSortedRecipes = [...recipes].sort((a, b) => b.readyInMinutes - a.readyInMinutes)
+    const timeSortedRecipes = workingRecipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
     console.log("Sorted recipes (longest to shortest):", timeSortedRecipes)
     loadRecipes(timeSortedRecipes)
 
     //Show recipes sorted shortest to longest
   } else {
-    const timeSortedRecipes = [...recipes].sort((a, b) => a.readyInMinutes - b.readyInMinutes)
+    const timeSortedRecipes = workingRecipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes)
     console.log("Sorted recipes (shortest to longest):", timeSortedRecipes)
 
     loadRecipes(timeSortedRecipes)
