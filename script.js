@@ -187,6 +187,22 @@ const loadRecipes = (recipeArray) => { //Creating a function named loadRecipes a
   })
 }
 
+const getRandomRecipe = () => {
+  const randomIndex = Math.floor(Math.random() * recipes.length)
+  const randomRecipe = recipes[randomIndex];
+
+  console.log("Surprise button was clicked");
+  console.log(`Random recipe selected: ${randomRecipe.title}`)
+
+  loadRecipes([randomRecipe]);
+}
+
+const surpriseButton = document.getElementById("button")
+
+if (surpriseButton) {
+  surpriseButton.addEventListener("click", getRandomRecipe)
+}
+
 
 //Creating a function called filterDiets and then selecting the checked radio buttons, capture their value (veg, vegan). 
 const filterDiets = () => {
@@ -246,24 +262,4 @@ document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
 
 
 loadRecipes(recipes)
-
-//Creating a new array called randomRecipe, extracting a portion of the recipes array using the slice method.
-const getRandomRecipe = () => {
-  const randomIndex = Math.floor(Math.random() * recipes.length)
-  console.log("surprisebutton was clicked");
-  console.log(`random recipe selected ${randomIndex}`)
-
-  const randomRecipe = recipes.slice(randomIndex, randomIndex + 1) // By using randomIndex and randomIndex + 1, we are selecting a single recipe at the randomly generated index.
-
-  loadRecipes(randomRecipe)
-}
-// Adding an action to surprise me button to render one random recipe.
-const surpriseButton = document.getElementById("button")
-
-if (surpriseButton) {
-  surpriseButton.addEventListener("click", getRandomRecipe)
-
-}
-
-
 
