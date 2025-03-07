@@ -146,26 +146,25 @@ const recipes = [
 ]
 
 
-let workingRecipes = recipes //Global, Creates a separate working array copy, preserves the original recipes array, enables modifications without losing initial data (for sort/filter).
+let workingRecipes = recipes //Global
 
-const recipesContainer = document.getElementById("recipes-container") // This selects my html recipecontainer and allows me to display things in it. 
+const recipesContainer = document.getElementById("recipes-container")
 
-const loadRecipes = (recipeArray) => { //Creating a function named loadRecipes and adding a *parameter called recipeArray to dynamically *render, display recipes in my container.
+const loadRecipes = (recipeArray) => {
   recipesContainer.innerHTML = "" // Clearing container of recipes before adding new recipes.
 
 
-  if (recipeArray.length === 0) { //Using .length method to count the numbers of recipes in the array.Checking if the count is zero.
+  if (recipeArray.length === 0) {
     console.log("empty, show message")
     recipesContainer.innerHTML = ` 
 <div class="empty">
 <h3> No recipes found. Select a different filter. </h3>
 </div>
-` //Connects a message to a chosen part of the innerHTML, this case recipecontainer.
+`
 
-    return //Stops the forEach loop from continuing to run.
+    return
   }
 
-  // Looping through objects with forEach method. Using template literal ``to create dynamic HTML.Inserting recipe-specific information through values ${}. Code makes sure every recipe from origin recipes array is displayed on the webpage. // .map() converts each ingredient to a list item .join("") combines those list items into one continuous HTML string.
   recipeArray.forEach(recipe => {
     recipesContainer.innerHTML += `
       <div class="recipe-item">
@@ -186,8 +185,7 @@ const loadRecipes = (recipeArray) => { //Creating a function named loadRecipes a
     `
   })
 }
-// Creating a function called getRandomRecipe
-//Using math and length method to get a random number/recipe
+
 const getRandomRecipe = () => {
   const randomIndex = Math.floor(Math.random() * recipes.length)
   const randomRecipe = recipes[randomIndex];
@@ -207,21 +205,18 @@ if (surpriseButton) {
 }
 
 
-//Creating a function called filterDiets and then selecting the checked radio buttons + capture their value (veg, vegan). 
 const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
   console.log("diet", filterValue)
 
-  // Using the global array workingRecipes.
-  // Copying all items from the origin recipes array to new.
-  // Ensuring all recipes will be displayed when "all" is selected.
+
   if (filterValue === "all") {
     workingRecipes = recipes //Variabel-value. 
     console.log("Show ALL recipes")
     console.log("recipes")
     loadRecipes(workingRecipes)
 
-    //Using the global array again, w. filter method to be able to filter only the recipes matching the selected diet filter, while keeping the original recipes array unchanged.
+
   } else {
     workingRecipes = recipes.filter(recipe =>
       recipe.diets.toLowerCase() === filterValue.toLowerCase()
@@ -238,12 +233,12 @@ document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
 })
 
-//Creating a function called sortTime and then selecting the checked radio buttons, capture their value (desc, ascend).
+
 const sortTime = () => {
   const sortValue = document.querySelector(`input[name="time"]:checked`).value
   console.log("time", sortValue)
 
-  //Sorts the recipes based on time using the sort method. Checks the value of sortValue and sorts the workingRecipes array in descending order if it's "descending", or in ascending order otherwise.
+
   if (sortValue === "descending") {
     const timeSortedRecipes = workingRecipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
     console.log("Sorted recipes (longest to shortest):", timeSortedRecipes)
