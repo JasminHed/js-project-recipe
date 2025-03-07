@@ -1,4 +1,4 @@
-//orginal array
+//orgin array
 const recipes = [
   {
     id: 1,
@@ -212,7 +212,7 @@ const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
   console.log("diet", filterValue)
 
-  // Creating a new array workingRecipes.
+  // Using the global array workingRecipes.
   // Copying all items from the origin recipes array to new.
   // Ensuring all recipes will be displayed when "all" is selected.
   if (filterValue === "all") {
@@ -221,7 +221,7 @@ const filterDiets = () => {
     console.log("recipes")
     loadRecipes(workingRecipes)
 
-    //Creating a new array w. filter method that contains only the recipes matching the selected diet filter, while keeping the original recipes array unchanged.
+    //Using the global array again, w. filter method to be able to filter only the recipes matching the selected diet filter, while keeping the original recipes array unchanged.
   } else {
     workingRecipes = recipes.filter(recipe =>
       recipe.diets.toLowerCase() === filterValue.toLowerCase()
