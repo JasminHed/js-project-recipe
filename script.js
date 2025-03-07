@@ -188,14 +188,14 @@ const loadRecipes = (recipeArray) => {
 
 const getRandomRecipe = () => {
   const randomIndex = Math.floor(Math.random() * recipes.length)
-  const randomRecipe = recipes[randomIndex];
+  const randomRecipe = recipes[randomIndex]
 
-  console.log("Surprise button was clicked");
+  console.log("Surprise button was clicked")
   console.log(`Random recipe selected: ${randomRecipe.title}`)
 
   //loadRecipes is responsible for showing all recipes
   //Calling it with the array randomRecipe to just get 1 random recipe
-  loadRecipes([randomRecipe]);
+  loadRecipes([randomRecipe])
 }
 
 //Adding an action to button to trigger a random recipe.
