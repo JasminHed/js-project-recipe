@@ -186,7 +186,8 @@ const loadRecipes = (recipeArray) => { //Creating a function named loadRecipes a
     `
   })
 }
-
+// Creating a function called getRandomRecipe
+//Using math and length method to get a random number/recipe
 const getRandomRecipe = () => {
   const randomIndex = Math.floor(Math.random() * recipes.length)
   const randomRecipe = recipes[randomIndex];
@@ -194,17 +195,19 @@ const getRandomRecipe = () => {
   console.log("Surprise button was clicked");
   console.log(`Random recipe selected: ${randomRecipe.title}`)
 
+  //loadRecipes is responsible for showing all recipes
+  //Calling it with the array randomRecipe to just get 1 random recipe
   loadRecipes([randomRecipe]);
 }
 
+//Adding an action to button to trigger a random recipe.
 const surpriseButton = document.getElementById("button")
-
 if (surpriseButton) {
   surpriseButton.addEventListener("click", getRandomRecipe)
 }
 
 
-//Creating a function called filterDiets and then selecting the checked radio buttons, capture their value (veg, vegan). 
+//Creating a function called filterDiets and then selecting the checked radio buttons + capture their value (veg, vegan). 
 const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
   console.log("diet", filterValue)
