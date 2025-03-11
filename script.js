@@ -145,16 +145,6 @@ const recipes = [
   }
 ]
 
-// this code fetches one random recipe from the Spoonacular API and logs the response data to the console.
-const URL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
-
-const fetchRecipe = () => {
-  fetch(URL)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("what is the data", data)
-    })
-}
 
 let workingRecipes = recipes //Global
 
@@ -175,7 +165,30 @@ const loadRecipes = (recipeArray) => {
     return
   }
 
-  recipeArray.forEach(recipe => {
+  // this code fetches one random recipe from the Spoonacular API and logs the response data to the console.
+  const URL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
+
+  const fetchRecipe = () => {
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("what is the data", data)
+        loadRecipes(data.recipes) //calling my function to show on webpage. but template literal is missing
+
+        const recipes = data.recipes //giving my variabel a value, saving data.recipes in my variabel recipes
+        console.log("recipes", recipes)
+
+
+      })
+  }
+  const fetchbutton = document.getElementById("fetch-button")
+  if (fetchbutton) {
+    fetchbutton.addEventListener("click", fetchRecipe)
+  }
+
+
+
+  /*</hr>recipeArray.forEach(recipe => {
     recipesContainer.innerHTML += `
       <div class="recipe-item">
         <img src="${recipe.image}" alt="${recipe.title}" />
@@ -194,80 +207,80 @@ const loadRecipes = (recipeArray) => {
       </div>
     `
   })
-}
+}*/
 
-const getRandomRecipe = () => {
-  const randomIndex = Math.floor(Math.random() * recipes.length)
-  const randomRecipe = recipes[randomIndex]
+  const getRandomRecipe = () => {
+    const randomIndex = Math.floor(Math.random() * recipes.length)
+    const randomRecipe = recipes[randomIndex]
 
-  console.log("Surprise button was clicked")
-  console.log(`Random recipe selected: ${randomRecipe.title}`)
+    console.log("Surprise button was clicked")
+    console.log(`Random recipe selected: ${randomRecipe.title}`)
 
-  //loadRecipes is responsible for showing all recipes
-  //Calling it with the array randomRecipe to just get 1 random recipe
-  loadRecipes([randomRecipe])
-}
-
-//Adding an action to button to trigger a random recipe.
-const surpriseButton = document.getElementById("button")
-if (surpriseButton) {
-  surpriseButton.addEventListener("click", getRandomRecipe)
-}
-
-
-const filterDiets = () => {
-  const filterValue = document.querySelector('input[name="diet"]:checked').value
-  console.log("diet", filterValue)
-
-
-  if (filterValue === "all") {
-    workingRecipes = recipes //Variabel-value. 
-    console.log("Show ALL recipes")
-    console.log("recipes")
-    loadRecipes(workingRecipes)
-
-
-  } else {
-    workingRecipes = recipes.filter(recipe =>
-      recipe.diets.toLowerCase() === filterValue.toLowerCase()
-    )
-    console.log(`Filtering recipes for ${filterValue}`, workingRecipes)
-
-    loadRecipes(workingRecipes)
-
+    //loadRecipes is responsible for showing all recipes
+    //Calling it with the array randomRecipe to just get 1 random recipe
+    loadRecipes([randomRecipe])
   }
-}
 
-//Adding an action to each diet filter radio button to trigger filtering.
-document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
-  radio.addEventListener(`change`, filterDiets)
-})
-
-
-const sortTime = () => {
-  const sortValue = document.querySelector(`input[name="time"]:checked`).value
-  console.log("time", sortValue)
-
-
-  if (sortValue === "descending") {
-    const timeSortedRecipes = workingRecipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
-    console.log("Sorted recipes (longest to shortest):", timeSortedRecipes)
-    loadRecipes(timeSortedRecipes)
-
-
-  } else {
-    const timeSortedRecipes = workingRecipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes)
-    console.log("Sorted recipes (shortest to longest):", timeSortedRecipes)
-
-    loadRecipes(timeSortedRecipes)
+  //Adding an action to button to trigger a random recipe.
+  const surpriseButton = document.getElementById("button")
+  if (surpriseButton) {
+    surpriseButton.addEventListener("click", getRandomRecipe)
   }
-}
-
-//Adding an action to each time sort radio button to trigger sorting.
-document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
-  radio.addEventListener(`change`, sortTime)
-})
 
 
-loadRecipes(recipes)
+  const filterDiets = () => {
+    const filterValue = document.querySelector('input[name="diet"]:checked').value
+    console.log("diet", filterValue)
+
+
+    if (filterValue === "all") {
+      workingRecipes = recipes //Variabel-value. 
+      console.log("Show ALL recipes")
+      console.log("recipes")
+      loadRecipes(workingRecipes)
+
+
+    } else {
+      workingRecipes = recipes.filter(recipe =>
+        recipe.diets.toLowerCase() === filterValue.toLowerCase()
+      )
+      console.log(`Filtering recipes for ${filterValue}`, workingRecipes)
+
+      loadRecipes(workingRecipes)
+
+    }
+  }
+
+  //Adding an action to each diet filter radio button to trigger filtering.
+  document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
+    radio.addEventListener(`change`, filterDiets)
+  })
+
+
+  const sortTime = () => {
+    const sortValue = document.querySelector(`input[name="time"]:checked`).value
+    console.log("time", sortValue)
+
+
+    if (sortValue === "descending") {
+      const timeSortedRecipes = workingRecipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
+      console.log("Sorted recipes (longest to shortest):", timeSortedRecipes)
+      loadRecipes(timeSortedRecipes)
+
+
+    } else {
+      const timeSortedRecipes = workingRecipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes)
+      console.log("Sorted recipes (shortest to longest):", timeSortedRecipes)
+
+      loadRecipes(timeSortedRecipes)
+    }
+  }
+
+  //Adding an action to each time sort radio button to trigger sorting.
+  document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
+    radio.addEventListener(`change`, sortTime)
+  })
+
+
+  loadRecipes(recipes)
 
