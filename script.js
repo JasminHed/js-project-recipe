@@ -145,6 +145,16 @@ const recipes = [
   }
 ]
 
+// this code fetches one random recipe from the Spoonacular API and logs the response data to the console.
+const URL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
+
+const fetchRecipe = () => {
+  fetch(URL)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("what is the data", data)
+    })
+}
 
 let workingRecipes = recipes //Global
 
