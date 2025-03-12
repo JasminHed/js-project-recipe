@@ -38,7 +38,8 @@ hr {
 }
 
 
-#button {
+#button,
+#fetch-button {
   white-space: nowrap;
   /* the text in button stays put*/
   border: none;

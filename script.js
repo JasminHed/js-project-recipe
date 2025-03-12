@@ -165,8 +165,11 @@ const loadRecipes = (recipeArray) => {
     return
   }
 
-
-
+  const getDietInfo = (recipe) => {
+    if (recipe.vegan) return "Vegan"
+    else if (recipe.vegetarian) return "Vegetarian"
+    return "Non-veg"
+  }
   recipeArray.forEach(recipe => {
     recipesContainer.innerHTML += `
       <div class="recipe-item">
@@ -175,7 +178,7 @@ const loadRecipes = (recipeArray) => {
 
         <hr>
 
-        <h3>Diet:</h3> <p> ${recipe.diets}</p>
+        <h3>Diet:</h3> <p> ${getDietInfo(recipe)}</p>
         <h3>Time:</h3> <p>${recipe.readyInMinutes} minutes</p>
         <hr>
         
@@ -198,7 +201,7 @@ const fetchRecipe = () => {
     .then((response) => response.json())
     .then((data) => {
       console.log("what is the data", data)
-      loadRecipes(data.recipes) //calling my function to show on webpage. but template literal is missing
+      loadRecipes(data.recipes) //calling my function to show on webpage
 
 
       const recipes = data.recipes //giving my variabel a value, saving data.recipes in my variabel recipes
