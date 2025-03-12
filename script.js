@@ -165,12 +165,26 @@ const loadRecipes = (recipeArray) => {
     return
   }
 
+
+  //Creating a function w. conditional statements to fetch diets
   const getDietInfo = (recipe) => {
     if (recipe.vegan) return "Vegan"
     else if (recipe.vegetarian) return "Vegetarian"
     return "Non-veg"
   }
+
   recipeArray.forEach(recipe => {
+    let ingredientList = ""
+    if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
+      recipe.extendedIngredients.forEach((ingredient) => {
+        ingredientList += `<li>${ingredient.name}</li>`
+
+      })
+    }
+    else {
+      ingredientList = "<li>No ingredients listed</li>"
+    }
+
     recipesContainer.innerHTML += `
       <div class="recipe-item">
         <img src="${recipe.image}" alt="${recipe.title}" />
@@ -183,17 +197,14 @@ const loadRecipes = (recipeArray) => {
         <hr>
         
         <h3>Ingredients:</h3>
-        <ul class="ingredient-list">
-        ${recipe.extendedIngredients
-        ? recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
-        : " <li>No ingredients listed</li>"}
+        <ul class="ingredient-list"> ${ingredientList}
         </ul> 
       </div>
     `
   })
 }
 
-// this code fetches one random recipe from the Spoonacular API and logs the response data to the console.
+// this code fetches one random recipe from the Spoonacular API
 const URL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
 
 const fetchRecipe = () => {
