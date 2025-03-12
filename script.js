@@ -166,19 +166,19 @@ const loadRecipes = (recipeArray) => {
   }
 
 
-  //Creating a function w. conditional statements to fetch diets
+  //Creating a function w. conditional statements to fetch diets since in API they are booleans and not arrays
   const getDietInfo = (recipe) => {
     if (recipe.vegan) return "Vegan"
     else if (recipe.vegetarian) return "Vegetarian"
     return "Non-veg"
   }
 
-  //Looping through the recipes from API
+  //Looping through the recipes 
   recipeArray.forEach(recipe => {
 
     // Creating a function with a conditional statement to check if ingredients exist.  
-    // Uses .length to verify if there are more than 0 ingredients.  
-    // If ingredients exist, .map creates a list, and .join formats it as a string.  
+    // Use length to see if there are more than 0
+    // If true, use .map that creates a list, and .join formats it as a string.  
     // If no ingredients exist, a fallback message appears.  
 
     let ingredientList = ""
@@ -189,6 +189,7 @@ const loadRecipes = (recipeArray) => {
     else {
       ingredientList = "<li>No ingredients listed</li>"
     }
+
     recipesContainer.innerHTML += `
       <div class="recipe-item">
         <img src="${recipe.image}" alt="${recipe.title}" />
@@ -208,22 +209,20 @@ const loadRecipes = (recipeArray) => {
   })
 }
 
-// this code fetches one random recipe from the Spoonacular API
-const URL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
+// global base URL
+const baseURL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
 
 const fetchRecipe = () => {
-  fetch(URL)
+
+  fetch(baseURL)
     .then((response) => response.json())
     .then((data) => {
-      console.log("what is the data", data)
-      loadRecipes(data.recipes) //calling my function to show on webpage
-
-
-      const recipes = data.recipes //giving my variabel a value, saving data.recipes in my variabel recipes
-      console.log("recipes", recipes)
-
+      console.log("fetched data", data)
+      loadRecipes(data.recipes) //calling my function to show fetched recipes on my webpage
 
     })
+    .catch(error => console.log("error fetching recipes", error))
+
 }
 const fetchbutton = document.getElementById("fetch-button")
 if (fetchbutton) {
@@ -232,7 +231,7 @@ if (fetchbutton) {
 
 
 
-
+//Getting a random recipe from my static recipe array by clickin surprise me button
 const getRandomRecipe = () => {
   const randomIndex = Math.floor(Math.random() * recipes.length)
   const randomRecipe = recipes[randomIndex]
@@ -255,6 +254,9 @@ if (surpriseButton) {
 const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
   console.log("diet", filterValue)
+
+  //Adding this
+
 
 
   if (filterValue === "all") {
@@ -306,5 +308,5 @@ document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
 })
 
 
-loadRecipes(recipes)
+fetchRecipes() //so it uploads API recipes 
 
