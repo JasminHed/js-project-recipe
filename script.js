@@ -255,18 +255,27 @@ const filterDiets = () => {
   //Adding this copy of baseURL
   let updatedURL = baseURL
 
-  if (filterValue !== "all") {
-    updatedURL += `&tags=${filterValue}`
-
+  if (filterValue === "all") {
+    // For "All" - just fetch random recipes without diet tags
+    fetch(baseURL)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("fetched data", data);
+        loadRecipes(data.recipes);
+      })
+      .catch(error => console.log("error fetching recipes", error));
+  } else {
+    // For specific diets - add the diet tag
+    let updatedURL = baseURL + `&tags=${filterValue}`;
     fetch(updatedURL)
       .then((response) => response.json())
       .then((data) => {
-        console.log("fetched data", data)
-        loadRecipes(data.recipes) //calling my function to show fetched recipes on my webpage
-
+        console.log("fetched data", data);
+        loadRecipes(data.recipes);
       })
-      .catch(error => console.log("error fetching recipes", error))
+      .catch(error => console.log("error fetching recipes", error));
   }
+}
 
 
   /*workingRecipes = recipes //Variabel-value. 
