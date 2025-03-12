@@ -1,30 +1,25 @@
 
-// global base URL
+
+// Global base URL for my API
 const baseURL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
 
+// Calling my container and make sure it is empt
 const recipesContainer = document.getElementById("recipes-container")
 
 const loadRecipes = (recipeArray) => {
-  recipesContainer.innerHTML = "" // Clearing container of recipes before adding new recipes.
+  recipesContainer.innerHTML = ""
 
-
-
-
-  //Creating a function w. conditional statements to fetch diets since in API they are booleans and not arrays
+  // Function w. conditional statement handles the fact that in the Spoonacular API, diet information comes as boolean properties (recipe.vegan, recipe.vegetarian) rather than as a single string value.
   const getDietInfo = (recipe) => {
     if (recipe.vegan) return "Vegan"
     else if (recipe.vegetarian) return "Vegetarian"
     return "Non-veg"
   }
 
-  //Looping through the recipes 
+  //Iterating/looping through each recipe allowing me to process each recipe individually.
   recipeArray.forEach(recipe => {
 
-    // Creating a function with a conditional statement to check if ingredients exist.  
-    // Use length to see if there are more than 0
-    // If true, use .map that creates a list, and .join formats it as a string.  
-    // If no ingredients exist, a fallback message appears.  
-
+    // The API returns ingredients as an array of objects, code checks if it exist. If it does it shows through map+join method, if not a fallback message is shown. 
     let ingredientList = ""
     if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
       ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
@@ -34,6 +29,7 @@ const loadRecipes = (recipeArray) => {
       ingredientList = "<li>No ingredients listed</li>"
     }
 
+    // Template literal, uses the processed diet information and ingredients list, creates a dynamic html that shows on webpage.
     recipesContainer.innerHTML += `
       <div class="recipe-item">
         <img src="${recipe.image}" alt="${recipe.title}" />
@@ -52,6 +48,8 @@ const loadRecipes = (recipeArray) => {
     `
   })
 }
+
+// FetchRecipe function that makes an API request to Spoonacular to see if we hit the quota limit, if yes an error message shows.
 
 const fetchRecipe = () => {
   fetch(baseURL)
@@ -75,49 +73,36 @@ const fetchRecipe = () => {
 }
 fetchRecipe()
 
-/*const fetchRecipe = () => {
-
-  fetch(baseURL)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("fetched data", data)
-      loadRecipes(data.recipes) //calling my function to show fetched recipes on my webpage
-
-    })
-    .catch(error => console.log("error fetching recipes", error))
-
-}
-fetchRecipe()*/
-
-//Adding this copy of baseURL
+//Adding a copy of baseURL. This lets me modify it withouth the base being changed. 
 let updatedURL = baseURL
 
+//Function to filter diets + getting filter value.
 const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
   console.log("diet", filterValue)
 
+  // Conditional statements, if all is selected show recipe with no specific diet.
   if (filterValue === "all") {
-    // For "All" - just fetch random recipes without diet tags
     fetch(baseURL)
       .then((response) => response.json())
       .then((data) => {
-        console.log("fetched data", data);
-        loadRecipes(data.recipes);
+        console.log("fetched data", data)
+        loadRecipes(data.recipes)
       })
-      .catch(error => console.log("error fetching recipes", error));
+      .catch(error => console.log("error fetching recipes", error))
+
+    // If specific filter is selected, show recipes with tag vegan, vegetarian.
   } else {
-    // For specific diets - add the diet tag
-    let updatedURL = baseURL + `&tags=${filterValue}`;
+    let updatedURL = baseURL + `&tags=${filterValue}`
     fetch(updatedURL)
       .then((response) => response.json())
       .then((data) => {
-        console.log("fetched data", data);
-        loadRecipes(data.recipes);
+        console.log("fetched data", data)
+        loadRecipes(data.recipes)
       })
-      .catch(error => console.log("error fetching recipes", error));
+      .catch(error => console.log("error fetching recipes", error))
   }
 }
-
 
 //Adding an action to each diet filter radio button to trigger filtering.
 document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
@@ -125,24 +110,25 @@ document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
 })
 
 
-
+// Function to sort on time + getting sortvalue.
 const sortTime = () => {
   const sortValue = document.querySelector(`input[name="time"]:checked`).value
   console.log("time", sortValue)
 
-
+  // Conditional statement, if descending is selected show recipes longest to shortest time.
   if (sortValue === "descending") {
-    // For descending order (longest to shortest)
     fetch(baseURL)
       .then((response) => response.json())
       .then((data) => {
-        const timeSortedRecipes = data.recipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes);
-        console.log("Sorted recipes (longest to shortest):", timeSortedRecipes);
-        loadRecipes(timeSortedRecipes);
+        const timeSortedRecipes = data.recipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
+        console.log("Sorted recipes (longest to shortest):", timeSortedRecipes)
+        loadRecipes(timeSortedRecipes)
       })
-      .catch(error => console.log("error fetching recipes", error));
+      .catch(error => console.log("error fetching recipes", error))
+
+    // If ascending is selected show recipes shortes to longest time.
   } else {
-    // For ascending order (shortest to longest)
+
     fetch(baseURL)
       .then((response) => response.json())
       .then((data) => {
