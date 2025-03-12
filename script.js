@@ -173,18 +173,22 @@ const loadRecipes = (recipeArray) => {
     return "Non-veg"
   }
 
+  //Looping through the recipes from API
   recipeArray.forEach(recipe => {
+
+    // Creating a function with a conditional statement to check if ingredients exist.  
+    // Uses .length to verify if there are more than 0 ingredients.  
+    // If ingredients exist, .map creates a list, and .join formats it as a string.  
+    // If no ingredients exist, a fallback message appears.  
+
     let ingredientList = ""
     if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
-      recipe.extendedIngredients.forEach((ingredient) => {
-        ingredientList += `<li>${ingredient.name}</li>`
+      ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
 
-      })
     }
     else {
       ingredientList = "<li>No ingredients listed</li>"
     }
-
     recipesContainer.innerHTML += `
       <div class="recipe-item">
         <img src="${recipe.image}" alt="${recipe.title}" />
