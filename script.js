@@ -154,7 +154,7 @@ const loadRecipes = (recipeArray) => {
   recipesContainer.innerHTML = "" // Clearing container of recipes before adding new recipes.
 
 
-  if (recipeArray.length === 0) {
+  /*if (recipeArray.length === 0) {
     console.log("empty, show message")
     recipesContainer.innerHTML = ` 
 <div class="empty">
@@ -163,7 +163,7 @@ const loadRecipes = (recipeArray) => {
 `
 
     return
-  }
+  }*/
 
 
   //Creating a function w. conditional statements to fetch diets since in API they are booleans and not arrays
@@ -209,6 +209,7 @@ const loadRecipes = (recipeArray) => {
   })
 }
 
+
 // global base URL
 const baseURL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
 
@@ -224,11 +225,7 @@ const fetchRecipe = () => {
     .catch(error => console.log("error fetching recipes", error))
 
 }
-const fetchbutton = document.getElementById("fetch-button")
-if (fetchbutton) {
-  fetchbutton.addEventListener("click", fetchRecipe)
-}
-
+fetchRecipe()
 
 
 //Getting a random recipe from my static recipe array by clickin surprise me button
@@ -255,32 +252,45 @@ const filterDiets = () => {
   const filterValue = document.querySelector('input[name="diet"]:checked').value
   console.log("diet", filterValue)
 
-  //Adding this
+  //Adding this copy of baseURL
+  let updatedURL = baseURL
+
+  if (filterValue !== "all") {
+    updatedURL += `&tags=${filterValue}`
+
+    fetch(updatedURL)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("fetched data", data)
+        loadRecipes(data.recipes) //calling my function to show fetched recipes on my webpage
+
+      })
+      .catch(error => console.log("error fetching recipes", error))
+  }
 
 
-
-  if (filterValue === "all") {
-    workingRecipes = recipes //Variabel-value. 
-    console.log("Show ALL recipes")
-    console.log("recipes")
-    loadRecipes(workingRecipes)
+  /*workingRecipes = recipes //Variabel-value. 
+  console.log("Show ALL recipes")
+  console.log("recipes")
+  loadRecipes(workingRecipes)*/
 
 
-  } else {
+  /*} else {
     workingRecipes = recipes.filter(recipe =>
       recipe.diets.toLowerCase() === filterValue.toLowerCase()
     )
     console.log(`Filtering recipes for ${filterValue}`, workingRecipes)
+ 
+    loadRecipes(workingRecipes)*/
 
-    loadRecipes(workingRecipes)
-
-  }
 }
+
 
 //Adding an action to each diet filter radio button to trigger filtering.
 document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
   radio.addEventListener(`change`, filterDiets)
 })
+
 
 
 const sortTime = () => {
@@ -308,5 +318,4 @@ document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
 })
 
 
-fetchRecipes() //so it uploads API recipes 
-
+fetchRecipe()
