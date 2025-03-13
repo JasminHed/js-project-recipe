@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
   }
 
-  //Adding a copy of baseURL. This lets me modify it withouth the base being changed. 
+  //Adding a global copy of baseURL. This lets me modify it withouth the base being changed. 
   let updatedURL = URL
 
   //Function to filter diets + getting filter value.
