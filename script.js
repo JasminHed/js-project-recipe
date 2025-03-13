@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const baseURL = "https://api.spoonacular.com/recipes/random"
   const apiKey = "f22e66767aca4bdda6a1d293d962b29e"
-  const URL = `${baseURL}/?apiKey=${apiKey}&number=3`
+  const URL = `${baseURL}?apiKey=${apiKey}&number=3`
 
 
   // Calling my container and make sure it is empty.
@@ -21,8 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //Iterating/looping through each recipe allowing me to process each recipe individually.
     recipeArray.forEach(recipe => {
 
-      // The API returns ingredients as an array of objects, code checks if it exist. If it does it shows through map+join method, if not a fallback message is 
-
+      // The API returns ingredients as an array of objects, code checks if it exist. If it does it shows through map+join method, if not a fallback message is placed. 
       let ingredientList = ""
       if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
         ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
@@ -32,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ingredientList = "<li>No ingredients listed</li>"
       }
 
-      // Template literal, uses the processed diet information and ingredients list, creates a dynamic html that shows on webpage.
+      // Template literal, uses the processed diet information and ingredient list, creates a dynamic html that shows on webpage.
       recipesContainer.innerHTML += `
       <div class="recipe-item">
         <img src="${recipe.image}" alt="${recipe.title}" />
@@ -42,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <h3>Diet:</h3> <p> ${getDietInfo(recipe)}</p>
         <h3>Time:</h3> <p>${recipe.readyInMinutes} minutes</p>
+
         <hr>
         
         <h3>Ingredients:</h3>
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Adapting my random/surprise button to API
   const getRandomRecipe = () => {
-    let URL = `${baseURL}/?apiKey=${apiKey}&number=1`
+    const URL = `${baseURL}/?apiKey=${apiKey}&number=1`
     fetch(URL)
       .then((response) => response.json())
       .then((data) => {
@@ -92,22 +92,18 @@ document.addEventListener("DOMContentLoaded", () => {
       })
   }
 
-  fetchRecipe()
-
   //Adding a copy of baseURL. This lets me modify it withouth the base being changed. 
   let updatedURL = URL
 
   //Function to filter diets + getting filter value.
   const filterDiets = () => {
     const filterValue = document.querySelector('input[name="diet"]:checked').value
-    console.log("diet", filterValue)
 
-    // Conditional statements, if all is selected show recipe with no specific diet.
+    // If all is selected show recipe with no specific diet.
     if (filterValue === "all") {
       fetch(URL)
         .then((response) => response.json())
         .then((data) => {
-          console.log("fetched data", data)
           loadRecipes(data.recipes)
         })
         .catch(error => console.log("error fetching recipes", error))
@@ -118,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
       fetch(updatedURL)
         .then((response) => response.json())
         .then((data) => {
-          console.log("fetched data", data)
           loadRecipes(data.recipes)
         })
         .catch(error => console.log("error fetching recipes", error))
@@ -134,15 +129,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to sort on time + getting sortvalue.
   const sortTime = () => {
     const sortValue = document.querySelector(`input[name="time"]:checked`).value
-    console.log("time", sortValue)
 
-    // Conditional statement, if descending is selected show recipes longest to shortest time.
+    // If descending is selected show recipes longest to shortest time.
     if (sortValue === "descending") {
       fetch(updatedURL)
         .then((response) => response.json())
         .then((data) => {
           const timeSortedRecipes = data.recipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
-          console.log("Sorted recipes (longest to shortest):", timeSortedRecipes)
           loadRecipes(timeSortedRecipes)
         })
         .catch(error => console.log("error fetching recipes", error))
@@ -153,11 +146,10 @@ document.addEventListener("DOMContentLoaded", () => {
       fetch(updatedURL)
         .then((response) => response.json())
         .then((data) => {
-          const timeSortedRecipes = data.recipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes);
-          console.log("Sorted recipes (shortest to longest):", timeSortedRecipes);
+          const timeSortedRecipes = data.recipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes)
           loadRecipes(timeSortedRecipes);
         })
-        .catch(error => console.log("error fetching recipes", error));
+        .catch(error => console.log("error fetching recipes", error))
     }
   }
 
