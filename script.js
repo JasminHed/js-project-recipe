@@ -5,7 +5,7 @@ const apiKey = "f22e66767aca4bdda6a1d293d962b29e"
 const URL = `${baseURL}/?apiKey=${apiKey}&number=1`
 
 
-// Calling my container and make sure it is empt
+// Calling my container and make sure it is empty.
 const recipesContainer = document.getElementById("recipes-container")
 
 const loadRecipes = (recipeArray) => {
@@ -52,26 +52,25 @@ const loadRecipes = (recipeArray) => {
 }
 
 // FetchRecipe function that makes an API request to Spoonacular to see if we hit the quota limit, if yes an error message shows.
-const fetchRecipe = () => {
-  fetch(URL)
-    .then((response) => {
-      if (response.status === 402) {
-        recipesContainer.innerHTML = `
-          <div class="quota-error">
-            <h3>API daily quota exceeded</h3>
-            <p>Sorry, we've reached our daily limit for recipe requests. Please try again tomorrow.</p>
-          </div>
-        `
-        throw new Error('API quota exceeded')
-      }
-      return response.json()
-    })
-    .then((data) => {
-      console.log("fetched data", data)
-      loadRecipes(data.recipes)
-    })
-    .catch(error => console.log("error fetching recipes", error))
-}
+
+fetch(URL)
+  .then(response => {
+    if (response.status === 402) {
+      throw new Error("Daily quota reached. Please try again tomorrow")
+    }
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    return response.json()
+  })
+  .then(data => {
+    console.log(data)
+  })
+
+  .catch(error => {
+    recipesContainer.innerHTML = `${error.message}`
+  })
+
 fetchRecipe()
 
 //Adding a copy of baseURL. This lets me modify it withouth the base being changed. 
