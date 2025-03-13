@@ -4,24 +4,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const apiKey = "f22e66767aca4bdda6a1d293d962b29e"
   const URL = `${baseURL}?apiKey=${apiKey}&number=3`
 
+  let updatedURL = URL
 
-  // Calling my container and make sure it is empty.
+
   const recipesContainer = document.getElementById("recipes-container")
 
   const loadRecipes = (recipeArray) => {
     recipesContainer.innerHTML = ""
 
-    // Function w. conditional statement handles the fact that in the Spoonacular API, diet information comes as boolean properties (recipe.vegan, recipe.vegetarian) rather than as a single string value.
+
     const getDietInfo = (recipe) => {
       if (recipe.vegan) return "Vegan"
       else if (recipe.vegetarian) return "Vegetarian"
       return "Non-veg"
     }
 
-    //Iterating/looping through each recipe allowing me to process each recipe individually.
     recipeArray.forEach(recipe => {
 
-      // The API returns ingredients as an array of objects, code checks if it exist. If it does it shows through map+join method, if not a fallback message is placed. 
+
       let ingredientList = ""
       if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
         ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ingredientList = "<li>No ingredients listed</li>"
       }
 
-      // Template literal, uses the processed diet information and ingredient list, creates a dynamic html that shows on webpage.
+
       recipesContainer.innerHTML += `
       <div class="recipe-item">
         <img src="${recipe.image}" alt="${recipe.title}" />
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // Adapting my random/surprise button to API
+
   const getRandomRecipe = () => {
     const URL = `${baseURL}/?apiKey=${apiKey}&number=1`
     fetch(URL)
@@ -70,9 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
     surpriseButton.addEventListener("click", getRandomRecipe)
   }
 
-  // FetchRecipe function that makes an API request to Spoonacular to see if we hit the quota limit, if yes an error message shows. Else all recipes shows on pageload, if there are no recipes a error messsage shows.
+
   const fetchRecipe = () => {
-    fetch(URL)
+    fetch(updatedURL)
       .then(response => {
 
         if (!response.ok) {
@@ -92,23 +92,20 @@ document.addEventListener("DOMContentLoaded", () => {
       })
   }
 
-  //Adding a global copy of baseURL. This lets me modify it withouth the base being changed. 
-  let updatedURL = URL
 
-  //Function to filter diets + getting filter value.
+  //Filter
   const filterDiets = () => {
     const filterValue = document.querySelector('input[name="diet"]:checked').value
 
     // If all is selected show recipe with no specific diet.
     if (filterValue === "all") {
-      fetch(URL)
+      fetch(updatedURL)
         .then((response) => response.json())
         .then((data) => {
           loadRecipes(data.recipes)
         })
         .catch(error => console.log("error fetching recipes", error))
 
-      // If specific filter is selected, show recipes with tag vegan, vegetarian.
     } else {
       updatedURL = `${baseURL}?apiKey=${apiKey}&tags=${filterValue}`
       fetch(updatedURL)
@@ -120,17 +117,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  //Adding an action to each diet filter radio button to trigger filtering.
   document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
     radio.addEventListener(`change`, filterDiets)
   })
 
 
-  // Function to sort on time + getting sortvalue.
+  //Sort
   const sortTime = () => {
     const sortValue = document.querySelector(`input[name="time"]:checked`).value
 
-    // If descending is selected show recipes longest to shortest time.
+
     if (sortValue === "descending") {
       fetch(updatedURL)
         .then((response) => response.json())
@@ -140,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.log("error fetching recipes", error))
 
-      // If ascending is selected show recipes shortes to longest time.
+
     } else {
 
       fetch(updatedURL)
@@ -153,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  //Adding an action to each time sort radio button to trigger sorting.
   document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
     radio.addEventListener(`change`, sortTime)
   })
