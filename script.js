@@ -80,7 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return response.json()
       })
       .then(data => {
-        console.log(data)
+        if (data.recipes && data.recipes.length > 0)
+          loadRecipes(data.recipes)
       })
 
       .catch(error => {
