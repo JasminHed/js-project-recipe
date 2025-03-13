@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //Iterating/looping through each recipe allowing me to process each recipe individually.
     recipeArray.forEach(recipe => {
 
-      // The API returns ingredients as an array of objects, code checks if it exist. If it does it shows through map+join method, if not a fallback message is shown. 
+      // The API returns ingredients as an array of objects, code checks if it exist. If it does it shows through map+join method, if not a fallback message is 
+
       let ingredientList = ""
       if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
         ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     surpriseButton.addEventListener("click", getRandomRecipe)
   }
 
-  // FetchRecipe function that makes an API request to Spoonacular to see if we hit the quota limit, if yes an error message shows.
+  // FetchRecipe function that makes an API request to Spoonacular to see if we hit the quota limit, if yes an error message shows. Else all recipes shows on pageload, if there are no recipes a error messsage shows.
   const fetchRecipe = () => {
     fetch(URL)
       .then(response => {
@@ -80,10 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return response.json()
       })
       .then(data => {
-        if (data.recipes && data.recipes.length > 0)
+        if (data.recipes && data.recipes.length > 0) {
           loadRecipes(data.recipes)
+        } else {
+          recipesContainer.innerHTML = "No recipes found"
+        }
       })
-
       .catch(error => {
         recipesContainer.innerHTML = `${error.message}`
       })
@@ -164,5 +167,4 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   fetchRecipe()
-
 })
