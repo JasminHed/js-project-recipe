@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const baseURL = "https://api.spoonacular.com/recipes/random"
   const apiKey = "f22e66767aca4bdda6a1d293d962b29e"
-  const URL = `${baseURL}/?apiKey=${apiKey}&number=5`
+  const URL = `${baseURL}/?apiKey=${apiKey}&number=3`
 
 
   // Calling my container and make sure it is empty.
