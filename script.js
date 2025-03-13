@@ -1,7 +1,9 @@
 
 
-// Global base URL for my API
-const baseURL = "https://api.spoonacular.com/recipes/random/?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
+const baseURL = "https://api.spoonacular.com/recipes/random"
+const apiKey = "f22e66767aca4bdda6a1d293d962b29e"
+const URL = `${baseURL}/?apiKey=${apiKey}&number=1`
+
 
 // Calling my container and make sure it is empt
 const recipesContainer = document.getElementById("recipes-container")
@@ -50,9 +52,8 @@ const loadRecipes = (recipeArray) => {
 }
 
 // FetchRecipe function that makes an API request to Spoonacular to see if we hit the quota limit, if yes an error message shows.
-
 const fetchRecipe = () => {
-  fetch(baseURL)
+  fetch(URL)
     .then((response) => {
       if (response.status === 402) {
         recipesContainer.innerHTML = `
@@ -74,7 +75,7 @@ const fetchRecipe = () => {
 fetchRecipe()
 
 //Adding a copy of baseURL. This lets me modify it withouth the base being changed. 
-let updatedURL = baseURL
+let updatedURL = URL
 
 //Function to filter diets + getting filter value.
 const filterDiets = () => {
@@ -83,7 +84,7 @@ const filterDiets = () => {
 
   // Conditional statements, if all is selected show recipe with no specific diet.
   if (filterValue === "all") {
-    fetch(baseURL)
+    fetch(URL)
       .then((response) => response.json())
       .then((data) => {
         console.log("fetched data", data)
@@ -93,7 +94,7 @@ const filterDiets = () => {
 
     // If specific filter is selected, show recipes with tag vegan, vegetarian.
   } else {
-    let updatedURL = baseURL + `&tags=${filterValue}`
+    updatedURL = `${baseURL}?apiKey=${apiKey}&tags=${filterValue}`
     fetch(updatedURL)
       .then((response) => response.json())
       .then((data) => {
@@ -117,7 +118,7 @@ const sortTime = () => {
 
   // Conditional statement, if descending is selected show recipes longest to shortest time.
   if (sortValue === "descending") {
-    fetch(baseURL)
+    fetch(updatedURL)
       .then((response) => response.json())
       .then((data) => {
         const timeSortedRecipes = data.recipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
@@ -129,7 +130,7 @@ const sortTime = () => {
     // If ascending is selected show recipes shortes to longest time.
   } else {
 
-    fetch(baseURL)
+    fetch(updatedURL)
       .then((response) => response.json())
       .then((data) => {
         const timeSortedRecipes = data.recipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes);
