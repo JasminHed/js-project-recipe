@@ -1,18 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const baseURL = "https://api.spoonacular.com/recipes/random"
-  const apiKey = "f22e66767aca4bdda6a1d293d962b29e"
-  const URL = `${baseURL}?apiKey=${apiKey}&number=3`
 
-  let updatedURL = URL
-
-
+  const URL = "https://api.spoonacular.com/recipes/random?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=10"
   const recipesContainer = document.getElementById("recipes-container")
 
+  // Fetch API recipes, save them to local storage and when limit is hit show stored recipes + show an error message
+  const fetchRecipe = () => {
+    fetch(URL)
+      .then(response => {
+        if (!response.ok) {
+          recipesContainer.innerHTML = `<p>API limit reached, but don't worry! We've got a full load of saved recipes for you.</p>`
+          throw new Error("API limit reached")
+        }
+        return response.json()
+      })
+      .then(data => {
+        if (data && data.recipes && data.recipes.length > 0) {
+          localStorage.setItem("recipes", JSON.stringify(data.recipes)) // Save fetched recipes to localStorage.
+          loadRecipes(data.recipes)
+        }
+      })
+      .catch(() => {
+        const storedRecipes = localStorage.getItem("recipes")
+        if (storedRecipes) {
+          loadRecipes(JSON.parse(storedRecipes)) // parse means converting string from storage to a usabel JS array
+        }
+      })
+  }
+
+  // Loop through all recipes
   const loadRecipes = (recipeArray) => {
     recipesContainer.innerHTML = ""
 
-    // Looping through recipes
     const getDietInfo = (recipe) => {
       if (recipe.vegan) return "Vegan"
       else if (recipe.vegetarian) return "Vegetarian"
@@ -21,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     recipeArray.forEach(recipe => {
-
       let ingredientList = "<li>No ingredients listed</li>"
 
       if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
@@ -43,39 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3>Ingredients:</h3>
         <ul class="ingredient-list"> ${ingredientList}
         </ul> 
-
-
       </div>
     `
     })
   }
 
-  //Quotalimit + pageload
-  const fetchRecipe = () => {
-    fetch(updatedURL)
-      .then(response => {
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-        return response.json()
-      })
-      .then(data => {
-        if (data.recipes && data.recipes.length > 0) {
-          loadRecipes(data.recipes)
-        } else {
-          recipesContainer.innerHTML = "No recipes found"
-        }
-      })
-      .catch(error => {
-        recipesContainer.innerHTML = `${error.message}`
-      })
-  }
-
-  //Random
+  //Random recipe
   const getRandomRecipe = () => {
-    const URL = `${baseURL}/?apiKey=${apiKey}&number=1`
-    fetch(URL)
+    const randomURL = "https://api.spoonacular.com/recipes/random?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
+    fetch(randomURL)
       .then((response) => response.json())
       .then((data) => {
         if (data.recipes && data.recipes.length > 0)
@@ -85,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const surpriseButton = document.getElementById("button")
-
   if (surpriseButton) {
     surpriseButton.addEventListener("click", getRandomRecipe)
   }
@@ -96,70 +89,68 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const chefsButton = document.getElementById("button1")
-
   if (chefsButton) {
     chefsButton.addEventListener("click", getChefsChoice)
   }
 
-  //Filter
+  // Filter - Using localStorage
   const filterDiets = () => {
     const filterValue = document.querySelector('input[name="diet"]:checked').value
+    const storedRecipes = JSON.parse(localStorage.getItem("recipes"))
 
+    if (storedRecipes.length === 0) {
+      recipesContainer.innerHTML = `<p>No recipes available to filter.</p>`
+      return
+    }
 
     if (filterValue === "all") {
-      fetch(URL)
-        .then((response) => response.json())
-        .then((data) => {
-          loadRecipes(data.recipes)
-        })
-        .catch(error => console.log("error fetching recipes", error))
-
+      loadRecipes(storedRecipes)
     } else {
-      updatedURL = `${baseURL}?apiKey=${apiKey}&tags=${filterValue}`
-      fetch(updatedURL)
-        .then((response) => response.json())
-        .then((data) => {
-          loadRecipes(data.recipes)
-        })
-        .catch(error => console.log("error fetching recipes", error))
+      const filteredRecipes = storedRecipes.filter(recipe => {
+        if (filterValue === "vegan") return recipe.vegan
+        if (filterValue === "vegetarian") return recipe.vegetarian && !recipe.vegan //not showing vegan recipes
+        if (filterValue === "pescatarian") return recipe.diets && recipe.diets.includes("pescatarian")
+        return false
+      })
+
+      if (filteredRecipes.length > 0) {
+        loadRecipes(filteredRecipes)
+      } else {
+        recipesContainer.innerHTML = `<p>No ${filterValue} recipes found. Try loading more recipes first!</p>`
+      }
     }
   }
-
-  document.querySelectorAll(`input[name = "diet"]`).forEach(radio => {
-    radio.addEventListener(`change`, filterDiets)
+  document.querySelectorAll('input[name="diet"]').forEach(radio => {
+    radio.addEventListener('change', filterDiets)
   })
 
-
-  //Sort
+  // Sort - Using localStorage
   const sortTime = () => {
-    const sortValue = document.querySelector(`input[name="time"]:checked`).value
+    const sortValue = document.querySelector('input[name="time"]:checked').value
+    const storedRecipes = JSON.parse(localStorage.getItem("recipes"))
 
+    if (storedRecipes.length === 0) {
+      recipesContainer.innerHTML = `<p>No recipes available to sort.</p>`
+      return
+    }
+
+    const sortedRecipes = storedRecipes.slice() //Slice method returns copy of array sortedRecipes
 
     if (sortValue === "descending") {
-      fetch(updatedURL)
-        .then((response) => response.json())
-        .then((data) => {
-          const timeSortedRecipes = data.recipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
-          loadRecipes(timeSortedRecipes)
-        })
-        .catch(error => console.log("error fetching recipes", error))
-
-
+      sortedRecipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
     } else {
-
-      fetch(updatedURL)
-        .then((response) => response.json())
-        .then((data) => {
-          const timeSortedRecipes = data.recipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes)
-          loadRecipes(timeSortedRecipes);
-        })
-        .catch(error => console.log("error fetching recipes", error))
+      sortedRecipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes)
     }
+
+    loadRecipes(sortedRecipes)
   }
 
-  document.querySelectorAll(`input[name = "time"]`).forEach(radio => {
-    radio.addEventListener(`change`, sortTime)
+  document.querySelectorAll('input[name="time"]').forEach(radio => {
+    radio.addEventListener('change', sortTime)
   })
 
   fetchRecipe()
+
 })
+
+
