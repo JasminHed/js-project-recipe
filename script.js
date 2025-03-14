@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //Quotalimit, pageload and empty message
-  /*const fetchRecipe = () => {
+  const fetchRecipe = () => {
     fetch(updatedURL)
       .then(response => {
 
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(error => {
         recipesContainer.innerHTML = `${error.message}`
       })
-  }*/
+  }
 
   //Random
   const getRandomRecipe = () => {
@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     surpriseButton.addEventListener("click", getRandomRecipe)
   }
 
+  //Empty message
   const getChefsChoice = () => {
     recipesContainer.innerHTML = `<p>No recipes found today from our chef. Try another button!</p>`
   }

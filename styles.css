@@ -47,7 +47,6 @@ hr {
   padding: 6px 6px;
   cursor: pointer;
   min-width: fit-content;
-  font-weight: bold;
 }
 
 #button:hover,
