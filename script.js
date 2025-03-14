@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const baseURL = "https://api.spoonacular.com/recipes/random"
   const apiKey = "f22e66767aca4bdda6a1d293d962b29e"
-  const URL = `${baseURL}?apiKey=${apiKey}&number=3`
+  const URL = `${baseURL}?apiKey=${apiKey}&number=5`
 
   let updatedURL = URL
 
@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const getDietInfo = (recipe) => {
       if (recipe.vegan) return "Vegan"
       else if (recipe.vegetarian) return "Vegetarian"
-      return "Non-veg"
+      else if (recipe.diets && recipe.diets.includes("pescatarian")) return "Pescatarian"
+      return "all-eater"
     }
 
     recipeArray.forEach(recipe => {
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ingredientList = "<li>No ingredients listed</li>"
       }
 
+      console.log(recipe);
 
       recipesContainer.innerHTML += `
       <div class="recipe-item">
@@ -47,31 +49,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3>Ingredients:</h3>
         <ul class="ingredient-list"> ${ingredientList}
         </ul> 
+
       </div>
     `
     })
   }
 
-
-  const getRandomRecipe = () => {
-    const URL = `${baseURL}/?apiKey=${apiKey}&number=1`
-    fetch(URL)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.recipes && data.recipes.length > 0)
-          loadRecipes(data.recipes)
-      })
-      .catch((error) => console.error("Error fetching recipe:", error))
-  }
-
-  const surpriseButton = document.getElementById("button")
-
-  if (surpriseButton) {
-    surpriseButton.addEventListener("click", getRandomRecipe)
-  }
-
-
-  const fetchRecipe = () => {
+  //Quotalimit, pageload and empty message
+  /*const fetchRecipe = () => {
     fetch(updatedURL)
       .then(response => {
 
@@ -90,6 +75,24 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(error => {
         recipesContainer.innerHTML = `${error.message}`
       })
+  }*/
+
+  //Random
+  const getRandomRecipe = () => {
+    const URL = `${baseURL}/?apiKey=${apiKey}&number=1`
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.recipes && data.recipes.length > 0)
+          loadRecipes(data.recipes)
+      })
+      .catch((error) => console.error("Error fetching recipe:", error))
+  }
+
+  const surpriseButton = document.getElementById("button")
+
+  if (surpriseButton) {
+    surpriseButton.addEventListener("click", getRandomRecipe)
   }
 
 
@@ -97,9 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterDiets = () => {
     const filterValue = document.querySelector('input[name="diet"]:checked').value
 
-    // If all is selected show recipe with no specific diet.
+
     if (filterValue === "all") {
-      fetch(updatedURL)
+      fetch(URL) //remember this was before updatedURL, see tomorrow friday what happens
         .then((response) => response.json())
         .then((data) => {
           loadRecipes(data.recipes)

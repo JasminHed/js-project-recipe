@@ -2,6 +2,7 @@
 
 body {
   background-color: whitesmoke;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 h1 {
@@ -38,7 +39,6 @@ hr {
 #button {
   white-space: nowrap;
   border: none;
-  background: #b0baef;
   color: whitesmoke;
   background: #FF6589;
   color: #0018A4;
@@ -46,6 +46,7 @@ hr {
   padding: 6px 6px;
   cursor: pointer;
   min-width: fit-content;
+  font-weight: bold;
 }
 
 #button:hover {
@@ -154,7 +155,7 @@ input[type="radio"]:checked+.sort-button {
 
   .filter-button,
   .sort-button {
-    padding: 4px 6px;
+    padding: 4px 4px;
   }
 
 }
@@ -186,7 +187,7 @@ input[type="radio"]:checked+.sort-button {
   .filter-button,
   .sort-button {
     margin-bottom: 8px;
-    padding: 6px 8px;
+    padding: 5px 5px;
   }
 
 }
