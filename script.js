@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadRecipes = (recipeArray) => {
     recipesContainer.innerHTML = ""
 
-
+    // Looping through recipes
     const getDietInfo = (recipe) => {
       if (recipe.vegan) return "Vegan"
       else if (recipe.vegetarian) return "Vegetarian"
@@ -21,16 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     recipeArray.forEach(recipe => {
-
-
-      /*let ingredientList = ""
-      if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
-        ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
-
-      }
-      else {
-        ingredientList = "<li>No ingredients listed</li>"
-      }*/
 
       let ingredientList = "<li>No ingredients listed</li>"
 
@@ -60,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  //Quotalimit, pageload and empty message
+  //Quotalimit + pageload
   const fetchRecipe = () => {
     fetch(updatedURL)
       .then(response => {
@@ -117,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (filterValue === "all") {
-      fetch(URL) //remember this was before updatedURL, see tomorrow friday what happens
+      fetch(URL)
         .then((response) => response.json())
         .then((data) => {
           loadRecipes(data.recipes)
