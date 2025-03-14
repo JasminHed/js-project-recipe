@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const baseURL = "https://api.spoonacular.com/recipes/random"
   const apiKey = "f22e66767aca4bdda6a1d293d962b29e"
-  const URL = `${baseURL}?apiKey=${apiKey}&number=5`
+  const URL = `${baseURL}?apiKey=${apiKey}&number=3`
 
   let updatedURL = URL
 
@@ -23,16 +23,20 @@ document.addEventListener("DOMContentLoaded", () => {
     recipeArray.forEach(recipe => {
 
 
-      let ingredientList = ""
+      /*let ingredientList = ""
       if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
         ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
 
       }
       else {
         ingredientList = "<li>No ingredients listed</li>"
-      }
+      }*/
 
-      console.log(recipe);
+      let ingredientList = "<li>No ingredients listed</li>"
+
+      if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
+        ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
+      }
 
       recipesContainer.innerHTML += `
       <div class="recipe-item">
@@ -49,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3>Ingredients:</h3>
         <ul class="ingredient-list"> ${ingredientList}
         </ul> 
+
 
       </div>
     `
@@ -95,6 +100,15 @@ document.addEventListener("DOMContentLoaded", () => {
     surpriseButton.addEventListener("click", getRandomRecipe)
   }
 
+  const getChefsChoice = () => {
+    recipesContainer.innerHTML = `<p>No recipes found today from our chef. Try another button!</p>`
+  }
+
+  const chefsButton = document.getElementById("button1")
+
+  if (chefsButton) {
+    chefsButton.addEventListener("click", getChefsChoice)
+  }
 
   //Filter
   const filterDiets = () => {
