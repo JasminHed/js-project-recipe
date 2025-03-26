@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Empty message
   const getChefsChoice = () => {
-    recipesContainer.innerHTML = `<p>No recipes found today from our chef. Try another button!</p>`
+    recipesContainer.innerHTML = `<p>No recipes found today from our chef. Try using our surprise button instead!</p>`
   }
 
   const chefsButton = document.getElementById("button1")
