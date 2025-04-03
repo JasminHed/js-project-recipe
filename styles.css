@@ -154,6 +154,34 @@ input[type="radio"]:checked+.sort-button {
 
 
 /*Media Queries*/
+@media (min-width: 320px) and (max-width: 667px) {
+  #recipes-container {
+    width: 95%;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .recipe-item {
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-top: 7px;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 667px) {
+  .recipe-item {
+    width: 100%;
+    max-width: none;
+    margin-top: 7px;
+  }
+
+  #recipes-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
 
 @media (min-width: 668px) and (max-width:1024px) {
 
