@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3>Ingredients:</h3>
         <ul class="ingredient-list"> ${ingredientList}
         </ul> 
+
       </div>
     `
     })

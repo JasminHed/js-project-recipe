@@ -16,7 +16,8 @@ h1 {
 
 }
 
-h2 {
+h2,
+legend {
   font-size: 22px;
   padding: 5px;
 }
@@ -59,6 +60,12 @@ hr {
   border: 2px solid #333333;
 }
 
+#button:focus,
+#button1:focus {
+  outline: 2px solid #4682B4;
+  outline-offset: 2px;
+}
+
 .parent {
   display: flex;
   flex-direction: column;
@@ -69,9 +76,21 @@ fieldset {
   border: none;
 }
 
-input[type="radio"] {
-  display: none;
 
+input[type="radio"] {
+  /*display: none;*/
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+input[type="radio"]:focus+.filter-button,
+input[type="radio"]:focus+.sort-button {
+
+  outline: 2px solid #4682B4;
+  outline-offset: 2px;
 }
 
 .filter-button {
