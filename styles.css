@@ -11,26 +11,26 @@ body {
 
 h1 {
   color: #0A3D1C;
-  font-size: 64px;
+  font-size: 4rem;
   padding: 5px;
 
 }
 
 h2,
 legend {
-  font-size: 22px;
+  font-size: 1.375rem;
   padding: 5px;
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
   padding: 5px;
   margin: 0;
 }
 
 p {
-  font-size: 16px;
+  font-size: 1rem;
   margin-top: 4px;
   padding: 5px;
   margin: 0;
@@ -47,12 +47,13 @@ hr {
   border: none;
   color: #000000;
   background: #D7CCC8;
-  border-radius: 30px;
+  border-radius: 1.875rem;
   padding: 6px 6px;
   font-size: 14px;
   cursor: pointer;
   min-width: fit-content;
   font-family: "Poppins", sans-serif;
+  margin-bottom: 1rem;
 }
 
 #button:hover,
@@ -98,12 +99,12 @@ input[type="radio"]:focus+.sort-button {
   white-space: nowrap;
   background: #BCAAA4;
   color: #000000;
-  border-radius: 50px;
+  border-radius: 3.125rem;
   padding: 5px 5px;
   font-size: 14px;
   cursor: pointer;
   min-width: fit-content;
-  height: 40px;
+  height: 2.5rem;
 
 }
 
@@ -111,12 +112,12 @@ input[type="radio"]:focus+.sort-button {
   border: none;
   background: #ddcabc;
   color: #000000;
-  border-radius: 50px;
+  border-radius: 3.125rem;
   padding: 6px 6px;
   font-size: 14px;
   cursor: pointer;
   width: 127px;
-  height: 40px;
+  height: 2.5rem;
 
 }
 
@@ -146,7 +147,7 @@ input[type="radio"]:checked+.sort-button {
 .recipe-item {
   border: 1px solid grey;
   border-radius: 12px;
-  max-width: 300px;
+  max-width: 18.75rem;
   padding: 5px;
   display: inline-block;
 }
