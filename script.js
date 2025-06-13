@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-
+//availabel for all functions
   const URL = "https://api.spoonacular.com/recipes/random?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=10"
+
   const recipesContainer = document.getElementById("recipes-container")
 
-  // Fetch API recipes, save them to local storage and when limit is hit show stored recipes + show an error message
+  //fetch recipes from API. 
   const fetchRecipe = () => {
     fetch(URL)
       .then(response => {
@@ -12,40 +13,42 @@ document.addEventListener("DOMContentLoaded", () => {
           recipesContainer.innerHTML = `<p>API limit reached, but don't worry! We've got a full load of saved recipes for you.</p>`
           throw new Error("API limit reached")
         }
+        //convert the raw response data to JavaScript data with .json().
         return response.json()
       })
       .then(data => {
         if (data && data.recipes && data.recipes.length > 0) {
-          localStorage.setItem("recipes", JSON.stringify(data.recipes)) // Save fetched recipes to localStorage.
+          localStorage.setItem("recipes", JSON.stringify(data.recipes)) 
           loadRecipes(data.recipes)
         }
       })
       .catch(() => {
         const storedRecipes = localStorage.getItem("recipes")
         if (storedRecipes) {
-          loadRecipes(JSON.parse(storedRecipes)) // parse means converting string from storage to a usabel JS array
+          loadRecipes(JSON.parse(storedRecipes)) 
         }
       })
   }
 
-  // Loop through all recipes
+  // renders through all recipes. 
   const loadRecipes = (recipeArray) => {
     recipesContainer.innerHTML = ""
 
+    
     const getDietInfo = (recipe) => {
       if (recipe.vegan) return "Vegan"
       else if (recipe.vegetarian) return "Vegetarian"
       else if (recipe.diets && recipe.diets.includes("pescatarian")) return "Pescatarian"
       return "all-eater"
     }
-
+    //for each.
     recipeArray.forEach(recipe => {
       let ingredientList = "<li>No ingredients listed</li>"
-
       if (recipe.extendedIngredients && recipe.extendedIngredients.length > 0) {
         ingredientList = recipe.extendedIngredients.map(ingredient => `<li>${ingredient.name}</li>`).join("")
       }
 
+      //template literal. 
       recipesContainer.innerHTML += `
       <div class="recipe-item">
         <img src="${recipe.image}" alt="${recipe.title}" />
@@ -67,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  //Random recipe
+  //random recipe. 
   const getRandomRecipe = () => {
     const randomURL = "https://api.spoonacular.com/recipes/random?apiKey=f22e66767aca4bdda6a1d293d962b29e&number=1"
     fetch(randomURL)
@@ -84,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     surpriseButton.addEventListener("click", getRandomRecipe)
   }
 
-  //Empty message
+  //practice empty message.
   const getChefsChoice = () => {
     recipesContainer.innerHTML = `<p>No recipes found today from our chef. Try using our surprise button instead!</p>`
   }
@@ -94,26 +97,24 @@ document.addEventListener("DOMContentLoaded", () => {
     chefsButton.addEventListener("click", getChefsChoice)
   }
 
-  // Filter - Using localStorage
+  // filter - using localStorage.
   const filterDiets = () => {
     const filterValue = document.querySelector('input[name="diet"]:checked').value
     const storedRecipes = JSON.parse(localStorage.getItem("recipes"))
-
     if (storedRecipes.length === 0) {
       recipesContainer.innerHTML = `<p>No recipes available to filter.</p>`
       return
     }
-
     if (filterValue === "all") {
       loadRecipes(storedRecipes)
     } else {
       const filteredRecipes = storedRecipes.filter(recipe => {
         if (filterValue === "vegan") return recipe.vegan
-        if (filterValue === "vegetarian") return recipe.vegetarian && !recipe.vegan //not showing vegan recipes
+        if (filterValue === "vegetarian") return recipe.vegetarian && !recipe.vegan 
         if (filterValue === "pescatarian") return recipe.diets && recipe.diets.includes("pescatarian")
         return false
       })
-
+      
       if (filteredRecipes.length > 0) {
         loadRecipes(filteredRecipes)
       } else {
@@ -125,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     radio.addEventListener('change', filterDiets)
   })
 
-  // Sort - Using localStorage
+  // sort - using localStorage
   const sortTime = () => {
     const sortValue = document.querySelector('input[name="time"]:checked').value
     const storedRecipes = JSON.parse(localStorage.getItem("recipes"))
@@ -135,10 +136,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return
     }
 
-    const sortedRecipes = storedRecipes.slice() //Slice method returns copy of array sortedRecipes
+    //slice. 
+    const sortedRecipes = storedRecipes.slice() 
 
-    if (sortValue === "descending") {
-      sortedRecipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes)
+    if (sortValue === "descending") { //longest time first.
+      sortedRecipes.sort((a, b) => b.readyInMinutes - a.readyInMinutes) 
     } else {
       sortedRecipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes)
     }
